@@ -1,0 +1,18 @@
+/* 
+ * File:   main.cpp
+ * Author: Dr Mark E. Lehr
+ * Created on November 6th, 2018, 1:20 PM
+ * Purpose:  Specification for the Abstract CARD Class
+ */
+
+
+#ifndef ABSCARD_H
+#define ABSCARD_H
+
+class AbsCard{
+    public:
+        virtual char getSuit() = 0;
+};
+
+#endif /* ABSCARD_H */
+

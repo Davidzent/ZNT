@@ -1,0 +1,11 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0040124E
+eax=00000000 ebx=20075C58 ecx=20018020 edx=00000000 esi=2007119B edi=0063CC00
+ebp=0063CB68 esp=0063CB68 program=C:\Users\mlehr\Desktop\2018_Fall_17a_LehrMark\Class\Class_of_1D_Dynamic_Array_1\dist\Debug\Cygwin-Windows\class_of_1d_dynamic_array_1.exe, pid 10600, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0063CB68  0040124E (20075C58, 00000000, 0000000C, 6ED9993A)
+0063CB98  00401354 (20075C58, 0000000A, 000000C3, 611F00D8)
+0063CBC8  004012E2 (00000001, 0063CBEC, 200280F0, 61009DE8)
+0063CD18  61009E4A (00000000, 0063CD74, 61008DE0, 00000000)
+End of stack trace
