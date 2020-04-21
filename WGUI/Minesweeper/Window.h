@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /* 
  * File:   Window.h
@@ -17,7 +12,7 @@ class Window{
 public:
     void open(int,int);         //open a cell
     void mark(int,int);         //Flag or unflag a cell
-    void draw();        //Draws to the window
+    void draw();                //Draws to the window
 };
 
 
