@@ -15,6 +15,6 @@ void Game::mark(int y, int x){
 }
 void Game::open(int y, int x){
     temp.open(y,x);
-    temp.prntmap();
+    //temp.prntmap();
 }
 
