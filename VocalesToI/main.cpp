@@ -17,8 +17,12 @@
 #include <string>
 using namespace std;
 
-/*
- * 
+
+/* 
+ * File:   Node.h
+ * Author: Guijosa David
+ * Created on March 28th, 2018, 9:26 AM
+ * Purpose:  Template Link List
  */
 int main(int argc, char** argv) {
     char name[15]="Message.txt";
@@ -35,7 +39,7 @@ int main(int argc, char** argv) {
         }
         sentence+=s+" ";
     }
-    cout<<sentence;
+    //cout<<sentence;
     out<<sentence;
     file.close();
     out.close();
