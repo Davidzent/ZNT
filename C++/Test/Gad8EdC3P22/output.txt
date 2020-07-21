@@ -1,0 +1,4 @@
+Enter an angle in radiants
+Sin(420.0000) = -0.8268
+cos(420.0000) = 0.5625
+tan(420.0000) = -1.4699
