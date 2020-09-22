@@ -2,7 +2,9 @@
  * File:   main.cpp
  * Author: Guijosa, David
  * Created on March 22, 2018, 11:00 AM
- * Purpose:  Hello World Template
+ * Purpose:  Drop Lowest Score
+	Modify Problem 2 above so the lowest test score is dropped. This score should not be
+	included in the calculation of the average.
  */
 
 //System Libraries Here
@@ -79,7 +81,7 @@ void smlLst(int *a,int n,int pos){
     }
 }
 void Sort(int *a,int n){
-    for(int i=0;i<n-1;i++){
+    for(int i=0;i<n;i++){
         smlLst(a,n,i);
     }
 }

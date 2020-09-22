@@ -1,0 +1,7 @@
+209/16 = 13 with a remainder of 1
+13/16 = 0 with a remainder of 13
+209 base 10 is:
+	D1 in base 16
+	321 in base 8
+	11010001 in base 2
+

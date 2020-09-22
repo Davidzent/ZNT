@@ -19,6 +19,7 @@ struct salData{
     int quarter;
     float qurtsal;
 };
+
 #ifdef __cplusplus
 extern "C" {
 #endif

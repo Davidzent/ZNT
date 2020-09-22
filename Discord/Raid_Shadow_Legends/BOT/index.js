@@ -9,10 +9,35 @@ const Score  = require('./Models/Scores');
 const Task   = require('./Models/Task');
 const Boss   = require('./Models/ClanBoss');
 const ytdl=require('ytdl-core');
+const yts=require('yt-search');
+//const { search } = require('yt-search');
 //const { noExtendLeft } = require('sequelize/types/lib/operators');
 const queue = new Map();
-const spm = "????????";
 
+/****************************************************************************************************************************** */
+const spm = "<@717553045679898734> we";
+const comand="-Help\n-Hello\n-play\n-skip\n-queue\n-join\n-stop\n-nini\n-0\n\n\n-#\n-show\n!chc\n!del\n!add";
+const meaning="Show available commands\nSaludate\nplays a song\nskip current song"
+             +"\nshow the playlist queue\njoin a voice server\nstops the queue\nnini"
+             +"\nshows emojies that can be used by bot or display one emoji with some name"
+             +"\nshows most used emojis"
+             +"\nshows one member stats\nchange one member stats\ndeletes a member\nadds a meber to the database";
+const example="-Help\n-Hello\n-p The Moss or -p (youtube url)\n-s or -Skip\n-q or -queue\n-j or -join\n-Stop\n-nini I need help"
+             +"\n-0 and -0 eridance\n\n\n-1 or -2 or -3...\n-show znt\n!chc week znt or !chc lvl znt 60\n!del znt\n!add znt";
+const plyrinfo= "\nLevel" +
+                "\nTotal Score" +
+                "\nMonday Boss" +
+                "\nTuesday Boss" + 
+                "\nWednesday Boss" + 
+                "\nThursday Boss" +
+                "\nFriday Boss" + 
+                "\nSaturday Boss" +
+                "\nSunday Boss"; 
+
+
+                
+
+//**************************************************************************************************************************** */
 bot.login(token);
 bot.on('ready', () => {
     bot.user.setActivity("with depression", {
@@ -43,54 +68,71 @@ bot.on ("guildMemberAdd", member => {
 /********************************************************************************************************************************************************/
 //Do something when a message is send
 bot.on("message", (message) =>{
-    const serverQueue = queue.get(message.guild.id);
+    //if the message came from a bot do nothing
+    if(message.author.bot){return 0;}
+    
+    //variables
+    let g = "none";
+    let mr = "none";
+    if(message.guild)g = queue.get(message.guild.id);
+    const serverQueue = g;
+    if(message.guild) mr=message.member.roles.cache;
+    let mrol = mr;
     let cmd = message.content.toUpperCase();
-    let sender= message.author;
     let cont=message.content.slice(prefix.length).split(" ");
     let args=cont.slice(1);
-    //console.log(cont);
+
     
-/********************************************************************************************************************************************************/
-    if(message.author.bot){}
+    /********************************************************************************************************************************************************/
     //Commands for everyone
-    else if(cmd===prefix+"HELP"){
-        message.channel.send(
-                "```\n-Command: Can Be Used By Everyone\n"+
-                "-Hello: Hello Command \n"+
-                "-show username: Dispays Player Info\n"+
-                "-Play link: Adds The Song Of The Link To A Queue\n"+
-                "-SKIP: Skips Current Song\n"+
-                "-Join: Bot Join Your Voice Chat\n"+
-                "\n!Command: Can Only Be Used By Admins or Leaders\n"+
-                "!Stop: Stop Current Queue\n"+
-                "!CHC username Type: Changes Player Info\n"+
-                "!DEL username: Delete A Player\n"+
-                "!ADD username lvl: Adds A New Player\n"+
-                "\n-CHC Command Types\n"+
-                "-LVL  ###: Change User Level\n"+
-                "-BOSS DAY: Change Clan Participation In Boss\n"+
-                "\n~Easter Eggs~: Find them\n```");
+    if(cmd===prefix+"HELP"){
+        let q = new Discord.MessageEmbed()
+        .setColor('#8865a0')
+        .setTitle("Clan Mannager Help")
+        .setURL("https://discord.com/api/oauth2/authorize?client_id=702964204210094231&permissions=0&scope=bot")
+        .setAuthor(message.author.tag, message.author.avatarURL() .toString())
+        .addFields(
+            { name: "Commands", value: comand, inline: true },
+            { name: "Meaning", value: (meaning), inline: true },
+            { name: "example", value: (example), inline: true }
+            )
+        .setFooter('There are secret commands', "https://cdn.discordapp.com/app-icons/702964204210094231/24ffd4c80226d842d31aeabf7dc03f45.png?size=512");
+        message.channel.send(q);
     }
-    else if(cmd===prefix+"HELLO"){
-        message.reply("Hi my friend.");
+    else if(cmd===prefix+"HELLO"||cmd===prefix+"HI"){
+        message.reply("Hello there.");
     }
-    //Play list
-    else if (cmd===prefix+"S") {
-        message.reply("Skiping song");    
+
+    /********************************************************************************************************************************************************/
+    //Music commands
+    else if (g!="none"&&cmd.startsWith(prefix+"S")) {
+        let t=new Date(0);
+        let repeat=1;
+        message.reply("Skiping song");  
+        if(args[0])repeat=parseInt(args[0]);
+        repeat--;
         skip(message, serverQueue);
+        for(let i=0;i<repeat&&i<serverQueue.size;i++){
+            serverQueue.time -= serverQueue.songs[i].TS;
+            serverQueue.songs.shift();
+            serverQueue.size--;
+            
+        }
+        t.setSeconds(serverQueue.time);
+        serverQueue.tm=t.toISOString().substr(11,8);
+        
     }
-    else if(cmd.startsWith(prefix+"P")){
+    else if(g!="none"&&cmd.startsWith(prefix+"P")){
         //message.delete({timeout: 5000});
         execute(message, serverQueue,args);
     }
-    else if(cmd===prefixch+"J"){
+    else if(g!="none"&&cmd===prefix+"J"){
         join(message);
-    }else if(cmd.startsWith(prefix+"Q")){
+    }else if(g!="none"&&cmd.startsWith(prefix+"Q")){
         que(message, serverQueue,args);
     }
-    else if (cmd===prefix+"STOP") {
-        if(message.member.roles.cache.some(role => role.name === 'Leader')
-           ||message.member.roles.cache.some(role => role.name === 'Admin')){
+    else if (g!="none"&&cmd===prefix+"STOP") {
+        if(mrol.some(role => role.name === 'Leader')||mrol.some(role => role.name === 'Admin')){
             message.reply("Stoping song");    
             stop(message, serverQueue);
         }
@@ -99,80 +141,100 @@ bot.on("message", (message) =>{
         }
     }
 
-/********************************************************************************************************************************************************/
+    /********************************************************************************************************************************************************/
     //Emojis
+    else if(cmd.startsWith(prefix+'0')&&!args[0]){
+        message.delete();
+        let lel="";     
+        bot.emojis.cache.each(emojis => (lel+=emojis.toString()+" "));
+        if(lel.length>2000){
+            let lel2=lel.split(" ");
+            let i=0;
+            while(i<lel2.length){
+                lel = "";
+                while(lel.length<1900&&i<lel2.length)lel+=lel2[i++];
+                message.channel.send(lel)
+                .then(msg => {
+                    msg.delete({timeout: 20000});
+                });;
+            }
+        }
+    }
+    else if(cmd.startsWith(prefix+'0')){
+        message.delete();
+        let lel=bot.emojis.cache.find(emojis => emojis.name.toUpperCase() == args[0].toUpperCase());
+        if(lel)message.channel.send(lel.toString());
+        else message.reply("There is no such emoji as '"+ args[0]+"'");
+    }
     else if(cmd===(prefix+'1')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Yeah').toString();
-        emoji("123");
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'2')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Sadcat').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'3')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Men').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'4')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Heart').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'5')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Fight').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'6')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Fdance').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'7')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'crapdance').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'8')){
         let lel=bot.emojis.cache.find(emojis => emojis.name == 'Cheers').toString();
         message.delete();
-        message.channel.send(lel);
+        if(lel)message.channel.send(lel);
     }else if(cmd===(prefix+'9')){
-        let lel=bot.emojis.cache.find(emojis => emojis.name == 'Cheers').toString();
+        let lel=bot.emojis.cache.find(emojis => emojis.name == 'eridance').toString();
         message.delete();
-        message.channel.send(":wink:");
+        if(lel)message.channel.send(lel);
     }
     
     /********************************************************************************************************************************************************/
     //Database
     //Change a value from the database
-    else if(cmd.startsWith(prefix+'SHOW')){
+    else if(mrol!="none"&&cmd.startsWith(prefix+'SHOW')){
         Show(message,args);
     }
-    else if(cmd.startsWith(prefixch+'CHC')){
-        if(message.member.roles.cache.some(role => role.name === 'Leader')
-                ||message.member.roles.cache.some(role => role.name === 'Admin')){
+    else if(mrol!="none"&&cmd.startsWith(prefixch+'CHC')){
+        if(mrol.some(role => role.name === 'Leader')||mrol.some(role => role.name === 'Admin')){
             Change(message,args);
         }
         else {
             message.reply("Not in required role ask the owner for permission.");
         }
     }
-    else if(cmd.startsWith(prefixch+'DEL')){
-        if(message.member.roles.cache.some(role => role.name === 'Leader')
-                ||message.member.roles.cache.some(role => role.name === 'Admin')){
+    else if(mrol!="none"&&cmd.startsWith(prefixch+'DEL')){
+        if(mrol.some(role => role.name === 'Leader')||mrol.some(role => role.name === 'Admin')){
             Del(message,args);
         }
         else {
             message.reply("Not in required role ask the owner for permission.");
         }
     }
-    else if(cmd.startsWith(prefixch+'ADD')){
-        if(message.member.roles.cache.some(role => role.name === 'Leader')
-                ||message.member.roles.cache.some(role => role.name === 'Admin')){
+    else if(mrol!="none"&&cmd.startsWith(prefixch+'ADD')){
+        if(mrol.some(role => role.name === 'Co-Leader')||mrol.some(role => role.name === 'Leader')){
             Add(message,args);
         }
         else {
             message.reply("Not in required role ask the owner for permission.");
         }
     }
+    /********************************************************************************************************************************************************/
     //Secret commands
     else if(cmd.includes("WELCOME")){
         message.delete();
@@ -182,27 +244,50 @@ bot.on("message", (message) =>{
     else if(cmd.includes(" WK ")||cmd.includes("WELCOM")||cmd.startsWith("WK ")){
         message.reply("Spell it right You lazy.");
     }
-
-    //Experiments
-    else if(cmd===prefix+"T"){
+    /********************************************************************************************************************************************************/
+    //Experiments / Unofficial commands
+    else if(cmd.startsWith(prefix+"NINI")){
         message.delete();
-        /*for(let i=0; i<20 ;i++){
-            message.channel.send(spm)
-            .then(msg => {
-                msg.delete({timeout: 10000});
-            });
-        } */
-        message.channel.send("▬▬▬▬▬▬:radio_button:▬▬▬▬▬▬");
-        //message.reply("Chingas a tu madre");  
+        let sentence="";
+        for(let i=0;i<args.length;i++){
+            sentence+=args[i].replace(/a|e|o|u/gi,"i")+" ";
+        }
+        message.channel.send(sentence);
     }
+    else if(cmd===prefix+"T"){
+        /*
+        let u = message.guild.client.users.cache.find(user => user.username === "Noemi");
+        for(let i=0;i<1;i++){
+            u.send("funciono");
+        }
+        console.log("sending");
+        message.delete();
+        if(args[0]){
+            const atchmnt= new Discord.MessageAttachment(args[0]);
+            message.channel.send(atchmnt);
+        }
+        else message.channel.send("No file location");
+        console.log(u);
+        //message.delete();
+        //for(let i=0; i<1000 ;i++){
+        //    message.channel.send(spm)
+        //    .then(msg => {
+        //        msg.delete({timeout: 10000});
+        //    });
+        //} 
+        //message.channel.send("▬▬▬▬▬▬:radio_button:▬▬▬▬▬▬");
+        */
+        message.reply("Chingas a tu madre"); 
+        
+    }
+
 });
 
-
 /********************************************************************************************************************************************************/
-//Functions
-
 //Play list Functions
 async function execute(message, serverQueue,args) {
+    //https://open.spotify.com/playlist
+    //https://www.youtube.com/
     const voiceChannel = message.member.voice.channel;
 
     if (!voiceChannel)
@@ -211,34 +296,60 @@ async function execute(message, serverQueue,args) {
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
         return message.channel.send("I need the permissions to join and speak in your voice channel!");
     }
-    const songInfo = await ytdl.getInfo(args[0]);
-    let h= (parseInt(songInfo.length_seconds/3600));
-    let m= (parseInt(songInfo.length_seconds/60));
-    let s= (songInfo.length_seconds%60);
-    let t="";
-    if(h>0){
-        t=h.toString()+":";
-        m-=h*60;
-    }
-    if(m<10){
-        t+="0"+m.toString()+":";
-        
-    }else{
-        t+=m.toString()+":";
-    }if(s<10){
-        t+="0"+s.toString();
-    }else{
-        t+=s.toString();
-    }
+    let spotify = "/open.spotify.com/";
+    let yt="/www.youtube.com/";
+    let t = new Date(0);
     const song = {
-        title: songInfo.title,
-        url: songInfo.video_url,
+        title: "",
+        url: "",
         requested: message.author.tag,
-        tlenght: t,
-        TS: songInfo.length_seconds,
-        thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
+        tlenght: "",
+        TS: "",
+        thumbnail: "",
         
     };
+
+    
+    if(args[0].includes(yt)){
+        const songInfo = await ytdl.getInfo(args[0]);
+        if(!songInfo)return message.channel.send("No:heart:");
+        t.setSeconds(song.TS);
+        song.title = songInfo.title;
+        song.url = songInfo.video_url;
+        song.TS = songInfo.length_seconds;
+        song.thumbnail = songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url;
+        song.tlenght=t.toISOString().substr(11,8);
+
+    }else if(args[0].includes(spotify)){
+        message.reply("Command is in progress");
+    }else{
+        const songInfo = await yts(args.toString().replace(/,/gi," ") + "lyrics");
+        let vid = songInfo.videos[0];
+        let tm=vid.timestamp.split(":");
+        let seconds=0;
+        let x=0;
+        for(let i=parseInt(tm.length)-1;i>=0;i--){
+            seconds+=parseInt(tm[i])*Math.pow(60,x++);
+        }
+        song.title=vid.title;
+        song.url = vid.url;
+        song.tlenght = vid.timestamp;
+        song.thumbnail = vid.thumbnail;
+        song.TS=seconds;
+        
+        /*
+        //for future search function
+        let size=10;
+        let r = await yts(args.toString());
+        let vid = r.videos.slice(0,size);
+        let resp = '```';
+        for(let i=0;i<size;i++){
+            resp += (parseInt(i)+1) + "\t" + vid[i].title.toString() + '\n';
+        }
+        resp += '```';
+        return message.channel.send(resp);
+        */
+    }
     
     if (!serverQueue) {
         // Creating the contract for our queue
@@ -250,14 +361,13 @@ async function execute(message, serverQueue,args) {
             size: 0,
             volume: 5,
             playing: true,
-            time: 0
-    };
+            time: song.TS,
+            tm: song.tlenght,
+        };
         // Setting the queue using our contract
         queue.set(message.guild.id, queueContruct);
         // Pushing the song to our songs array
         queueContruct.songs.push(song);
-        queueContruct.time += song.TS;
-        
         try {
             // Here we try to join the voicechat and save our connection into our object.
             var connection = await voiceChannel.join();
@@ -273,14 +383,35 @@ async function execute(message, serverQueue,args) {
         }
 
     } else {
+        delete t;
+        t=new Date(0);
+        let temp = new Date(0);
+        temp.setSeconds(serverQueue.time);
+
+        //Increase the time for the queue to end
+        serverQueue.time += parseInt(song.TS);
+        t.setSeconds(serverQueue.time);
+        serverQueue.tm = t.toISOString().substr(11,8);
         serverQueue.songs.push(song);
         serverQueue.size++;
-        return message.channel.send(`${song.title} has been added to the queue!`);
+
+        //Send message
+        let q = new Discord.MessageEmbed()
+        .setColor('#8865a0')
+        .setTitle(song.title)
+        .setURL("https://discord.com/api/oauth2/authorize?client_id=702964204210094231&permissions=0&scope=bot")
+        .setAuthor('Added to queue', message.author.avatarURL() .toString())
+        .setThumbnail(song.thumbnail.toString());
+        q.addFields(
+            { name: "Song duration", value: (song.tlenght), inline: true },
+            { name: "Estimated time until playing", value: (temp.toISOString().substr(11,8)), inline: true }
+            );
+        return message.channel.send(q);
   }
 }
 
 function play(guild, song) {
-    
+    let t = new Date(0);
     const serverQueue = queue.get(guild.id);
     if (!song) {
         serverQueue.voiceChannel.leave();
@@ -289,13 +420,17 @@ function play(guild, song) {
     }
     let dispatcher = serverQueue.connection.play(ytdl(song.url,{filter: "audioonly"})).on("finish", () => {
         serverQueue.songs.shift();
+        serverQueue.size--;
+        serverQueue.time -= song.TS;
+        t.setSeconds(serverQueue.time);
+        serverQueue.tm=t.toISOString().substr(11,8);
         play(guild, serverQueue.songs[0]);
-    });
+    }).on("error", error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-    serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+    serverQueue.textChannel.send("**Start playing :notes: : `" + song.title + "`**");
 }
 
-async function join(message){
+async function join(message,serverQueue){
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel)
         return message.channel.send("You need to be in a voice channel to play music!");
@@ -303,12 +438,20 @@ async function join(message){
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
         return message.channel.send("I need the permissions to join and speak in your voice channel!");   
     }
+    if(!serverQueue){
+        return message.channel.send("Someone is already using the bot");   
+    
+    }
     var connection = await voiceChannel.join();
 }
 
 function que(message,serverQueue,args){
-    if(!serverQueue)return;
+    let lng=5;
+    if(!serverQueue)return message.channel.send("There is no queue");
     if(!args[0]) args[0] = 0;
+    else{
+        args[0]--;
+    }
     // inside a command, event listener, etc.
     let s="";
     let q = new Discord.MessageEmbed()
@@ -324,9 +467,12 @@ function que(message,serverQueue,args){
     + serverQueue.songs[0].tlenght + " Requested by: "+ serverQueue.songs[0].requested.toString()) + '`', inline: false});
     
     //Create a temporary string for the other songs
-    for(let i=1;i<serverQueue.size&&i<10;i++){
-        s+="`"+(i).toString()+". "+"`"+"["+serverQueue.songs[i].title.toString()+"]" + "("+serverQueue.songs[i].url.toString()+") | `"
-        + serverQueue.songs[i].tlenght + " Requested by: "+ serverQueue.songs[i].requested.toString() + "`\n"; 
+    let temp=0;
+    if (args[0]==0)temp=1;
+    for(let i=(temp+(args[0]*lng));i<serverQueue.size&&i<(lng*(args[0]+1));i++){
+        if(serverQueue.songs[i])
+            s+="`"+(i).toString()+". "+"`"+"["+serverQueue.songs[i].title.toString()+"]" + "("+serverQueue.songs[i].url.toString()+") | `"
+            + serverQueue.songs[i].tlenght + " Requested by: "+ serverQueue.songs[i].requested.toString() + "`\n"; 
     }
 
     //add them to the MessageEmbed
@@ -336,9 +482,9 @@ function que(message,serverQueue,args){
     //Information about the queue
     if(serverQueue.size>1)
     q.addFields({name: "Info: ", value:"**" + (serverQueue.size-1).toString() + ' songs in queue | ' +
-     ((parseInt(serverQueue.time/60)).toString() +":"+ (serverQueue.time%60).toString())+ ' total length**'});
-    q.setFooter('Page: 1/1', message.author.avatarURL() .toString());
-
+        serverQueue.tm + ' total length**'});
+    q.setFooter('Page: ' + (args[0]+1)+ '/' + (Math.ceil(serverQueue.size/lng)).toString() , 
+        message.author.avatarURL() .toString());
     //send it to discord
     message.channel.send(q);
 }
@@ -348,7 +494,7 @@ function skip(message, serverQueue) {
         return message.channel.send("You have to be in a voice channel to stop the music!");
     if (!serverQueue)
         return message.channel.send("There is no song that I could skip!");
-    serverQueue.connection.dispatcher.end();
+    if(serverQueue.connection.dispatcher)serverQueue.connection.dispatcher.end();
 }
 
 function stop(message, serverQueue) {
@@ -560,16 +706,25 @@ async function Show(message,args){
             message.channel.send("There is no member with the nickname: " + args[0]);
         }else{    
             // Now output players data
-            message.channel.send("```\nNickname       : " + args[0] + 
-                    "\nLevel          : " + member.LVL + 
-                    "\nTotal Score    : " + member.TOTALSCORE +
-                    "\nMonday Boss    : " + (boss.BOSSMON?"Yes":"No") +
-                    "\nTuesday Boss   : " + (boss.BOSSTUE?"Yes":"No") +
-                    "\nWednesday Boss : " + (boss.BOSSWED?"Yes":"No") +
-                    "\nThursday Boss  : " + (boss.BOSSTHU?"Yes":"No") +
-                    "\nFriday Boss    : " + (boss.BOSSFRI?"Yes":"No") +
-                    "\nSaturday Boss  : " + (boss.BOSSSAT?"Yes":"No") +
-                    "\nSunday Boss    : " + (boss.BOSSSUN?"Yes":"No")+ "```");
+            let data = member.LVL+'\n'+ member.TOTALSCORE+'\n'+
+                    (boss.BOSSMON?"Yes":"No") + '\n' +
+                    (boss.BOSSTUE?"Yes":"No") + '\n' +
+                    (boss.BOSSWED?"Yes":"No") + '\n' +
+                    (boss.BOSSTHU?"Yes":"No") + '\n' +
+                    (boss.BOSSFRI?"Yes":"No") + '\n' +
+                    (boss.BOSSSAT?"Yes":"No") + '\n' +
+                    (boss.BOSSSUN?"Yes":"No") + '\n';
+            let q = new Discord.MessageEmbed()
+            .setColor('#8865a0')
+            .setTitle("Info of "+args[0])
+            .setURL("https://discord.com/api/oauth2/authorize?client_id=702964204210094231&permissions=0&scope=bot")
+            .setAuthor(message.author.tag, message.author.avatarURL().toString())
+            .addFields(
+                { name: "Info", value: plyrinfo, inline: true },
+                { name: "Value", value: data, inline: true },
+                );
+            message.channel.send(q);
+                
         }
     }
     
