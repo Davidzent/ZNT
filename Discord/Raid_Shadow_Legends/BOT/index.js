@@ -10,12 +10,10 @@ const Task   = require('./Models/Task');
 const Boss   = require('./Models/ClanBoss');
 const ytdl=require('ytdl-core');
 const yts=require('yt-search');
-//const { search } = require('yt-search');
-//const { noExtendLeft } = require('sequelize/types/lib/operators');
 const queue = new Map();
 
 /****************************************************************************************************************************** */
-const spm = "<@717553045679898734> we";
+const spm = "<@297774423715348480> Mimi";//297774423715348480
 const comand="-Help\n-Hello\n-play\n-skip\n-queue\n-join\n-stop\n-nini\n-0\n\n\n-#\n-show\n!chc\n!del\n!add";
 const meaning="Show available commands\nSaludate\nplays a song\nskip current song"
              +"\nshow the playlist queue\njoin a voice server\nstops the queue\nnini"
@@ -125,6 +123,10 @@ bot.on("message", (message) =>{
     else if(g!="none"&&cmd.startsWith(prefix+"P")){
         //message.delete({timeout: 5000});
         execute(message, serverQueue,args);
+    }
+    else if(g!="none"&&cmd.startsWith(prefix+"R")){
+        //message.delete({timeout: 5000});
+        random(message, serverQueue,args);
     }
     else if(g!="none"&&cmd===prefix+"J"){
         join(message);
@@ -255,6 +257,7 @@ bot.on("message", (message) =>{
         message.channel.send(sentence);
     }
     else if(cmd===prefix+"T"){
+        message.delete();
         /*
         let u = message.guild.client.users.cache.find(user => user.username === "Noemi");
         for(let i=0;i<1;i++){
@@ -268,16 +271,17 @@ bot.on("message", (message) =>{
         }
         else message.channel.send("No file location");
         console.log(u);
-        //message.delete();
-        //for(let i=0; i<1000 ;i++){
-        //    message.channel.send(spm)
-        //    .then(msg => {
-        //        msg.delete({timeout: 10000});
-        //    });
-        //} 
-        //message.channel.send("▬▬▬▬▬▬:radio_button:▬▬▬▬▬▬");
         */
-        message.reply("Chingas a tu madre"); 
+        message.delete();
+        for(let i=0; i<1000 ;i++){
+            message.channel.send(spm)
+            .then(msg => {
+                msg.delete({timeout: 10000});
+            });
+        } 
+        //message.channel.send("▬▬▬▬▬▬:radio_button:▬▬▬▬▬▬");
+        
+        message.channel.send("Yes"); 
         
     }
 
@@ -285,19 +289,215 @@ bot.on("message", (message) =>{
 
 /********************************************************************************************************************************************************/
 //Play list Functions
+async function random(message, serverQueue,args){
+    let repeat=parseInt(args[args.length-1]);
+    if(!repeat){
+        repeat=10;
+    }
+    else{
+        args[args.length-1]="";
+    }
+    for(let i=0;i<repeat;i++){
+        console.log("run "+i);
+        const voiceChannel = message.member.voice.channel;
+        if (!voiceChannel)
+            return message.channel.send("You need to be in a voice channel to play music!");
+        const permissions = voiceChannel.permissionsFor(message.client.user);
+        if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+            return message.channel.send("I need the permissions to join and speak in your voice channel!");
+        }
+        let spotify = "/open.spotify.com/";
+        let yt="/www.youtube.com/";
+        let yt2="/youtube.com/";
+        let t = new Date(0);
+        let songInfo;
+        const song = {
+            title: "",
+            url: "",
+            requested: message.author.tag,
+            tlenght: "",
+            TS: "",
+            thumbnail: "",
+                
+        };
+        if(args[0].includes(yt)||args[0].includes(yt2)){
+            songInfo = await ytdl.getInfo(args[0]);
+            if(!songInfo)return message.channel.send("No:heart:");
+            t.setSeconds(songInfo.length_seconds);
+            song.title = songInfo.title;
+            song.url = songInfo.video_url;
+            song.TS = parseInt(songInfo.length_seconds);
+            song.thumbnail = songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url;
+            song.tlenght=t.toISOString().substr(11,8);
+
+        }else if(args[0].toUpperCase()+args[1].toUpperCase()==='ID'){
+            args=args.toString().replace(/,|ID| /gi,"");
+            try{
+                songInfo = await ytdl.getInfo(args);
+            }catch(err){
+                console.log(err);
+                args+=" "+repeat-i+1;
+                return random(message,serverQueue,args);
+            }
+            if(!songInfo)return message.channel.send("No:heart:");
+            t.setSeconds(songInfo.length_seconds);
+            song.title = songInfo.title;
+            song.url = songInfo.video_url;
+            song.TS = parseInt(songInfo.length_seconds);
+            song.thumbnail = songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url;
+            song.tlenght=t.toISOString().substr(11,8);
+            
+
+        }else if(args[0].includes(spotify)){
+            return message.reply("Command is in progress");
+        }else{
+            let songname = await yts(args.toString().replace(/,/gi," ") + "lyrics");
+            console.log(args[0]);
+            console.log(args);
+            //console.log(songname.videos[0]);
+            let vid;
+            let temp=0;
+            do{
+                vid = songname.videos[temp];
+                //console.log(vid);
+                //console.log(vid.url.toString().replace(/\/youtube.com\//gi,yt));
+                try{
+                    songInfo = await ytdl.getInfo(vid.url.toString().replace(/\/youtube.com\//gi,yt));
+                }catch(err){
+                    //console.log(songInfo);
+                    //console.log(err);
+                    //args[args.length]=repeat-i;
+                    //return random(message,serverQueue,args);
+                }
+                
+            }while(!songInfo&&(temp++)<songname.videos.length);
+            if(temp>=songname.videos.length&&songInfo){
+                do{
+                    //console.log("new");
+                    //console.log(queue.get(message.guild.id));
+                    //console.log(songInfo.related_videos[x]);
+                    args="ID ";
+                    args+=songInfo.related_videos[x].id.toString();
+                    //console.log(args);
+                    b=(songInfo&&queue.get(message.guild.id))?queue.get(message.guild.id).songs.some(songs => songs.title === songInfo.related_videos[x].title):false;
+                    //console.log(b);
+                    //if(queue.get(message.guild.id)&&songInfo)console.log(queue.get(message.guild.id).songs.some(songs => songs.title === args));
+                }while((b||parseInt(songInfo.related_videos[x++].length_seconds)>600)&&x<songInfo.related_videos.length);
+                console.log("out because of exceed");
+                args+=" "+repeat-i+1;
+                return random(message,serverQueue,args);
+            }
+            //console.log("info");
+            //console.log(queue.get(message.guild.id));
+            //if(queue.get(message.guild.id)){
+            //    console.log(songInfo);
+            //    console.log(queue.get(message.guild.id).songs);
+            //    songInfo?console.log(queue.get(message.guild.id).songs.some(songs => songs.title === songInfo.title)):0;
+            //}
+                
+            t.setSeconds(songInfo.length_seconds);
+            song.title = songInfo.title;
+            song.url = songInfo.video_url;
+            song.TS = parseInt(songInfo.length_seconds);
+            song.thumbnail = songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url;
+            song.tlenght=t.toISOString().substr(11,8);
+        }
+        
+        let b=false;
+        let x=0;
+        
+        do{
+            console.log("new");
+            //console.log(queue.get(message.guild.id));
+            //console.log(songInfo.related_videos[x]);
+            args="ID ";
+            args+=songInfo.related_videos[x].id.toString();
+            //console.log(args);
+            b=(songInfo&&queue.get(message.guild.id))?queue.get(message.guild.id).songs.some(songs => songs.title === songInfo.related_videos[x].title):false;
+            console.log(b);
+            if(queue.get(message.guild.id)&&songInfo){
+                console.log(queue.get(message.guild.id).songs.some(songs => songs.title === songInfo.related_videos[x].title));
+                console.log(songInfo.related_videos[x].title);
+                console.log(queue.get(message.guild.id));
+                console.log(songInfo.related_videos.length+" "+x);
+            }
+        }while((b||parseInt(songInfo.related_videos[x].length_seconds)>600)&&x++<songInfo.related_videos.length);
+        //console.log(args);
+        if (!serverQueue&&!queue.get(message.guild.id)) {
+            // Creating the contract for our queue
+            const queueContruct = {
+                textChannel: message.channel,
+                voiceChannel: voiceChannel,
+                connection: null,
+                songs: [],
+                size: 0,
+                volume: 5,
+                playing: true,
+                time: song.TS,
+                tm: song.tlenght,
+            };
+            // Pushing the song to our songs array
+            queueContruct.songs.push(song);
+            // Setting the queue using our contract
+            queue.set(message.guild.id, queueContruct);
+            try {
+                // Here we try to join the voicechat and save our connection into our object.
+                var connection = await voiceChannel.join();
+                queueContruct.connection = connection;
+                // Calling the play function to start a song
+                play(message.guild, queueContruct.songs[0]);
+                queueContruct.size++; 
+            } catch (err) {
+                // Printing the error message if the bot fails to join the voicechat
+                console.log(err);
+                queue.delete(message.guild.id);
+                return message.channel.send(err);
+            }
+        } else {
+            serverQueue=queue.get(message.guild.id);
+            delete t;
+            t=new Date(0);
+            let temp = new Date(0);
+            //console.log(serverQueue.time);
+            temp.setSeconds(serverQueue.time);
+
+            //Increase the time for the queue to end
+            serverQueue.time += parseInt(song.TS);
+            //console.log(serverQueue.time);
+            t.setSeconds(serverQueue.time);
+            serverQueue.tm = t.toISOString().substr(11,8);
+            serverQueue.songs.push(song);
+            serverQueue.size++;
+            //Send message
+            let q = new Discord.MessageEmbed()
+            .setColor('#8865a0')
+            .setTitle(song.title)
+            .setURL(song.url)
+            .setAuthor('Added to queue', message.author.avatarURL() .toString())
+            .setThumbnail(song.thumbnail.toString());
+            q.addFields(
+                { name: "Song duration", value: (song.tlenght), inline: true },
+                { name: "Estimated time until playing", value: (temp.toISOString().substr(11,8)), inline: true }
+                );
+            message.channel.send(q);
+        }
+    }
+}
 async function execute(message, serverQueue,args) {
     //https://open.spotify.com/playlist
     //https://www.youtube.com/
+    //https://youtube.com/watch?v=GQ3V50XoLOM
     const voiceChannel = message.member.voice.channel;
-
     if (!voiceChannel)
         return message.channel.send("You need to be in a voice channel to play music!");
     const permissions = voiceChannel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
         return message.channel.send("I need the permissions to join and speak in your voice channel!");
     }
+    console.log(args);
     let spotify = "/open.spotify.com/";
     let yt="/www.youtube.com/";
+    let yt2="/youtube.com/";
     let t = new Date(0);
     const song = {
         title: "",
@@ -310,9 +510,11 @@ async function execute(message, serverQueue,args) {
     };
 
     
-    if(args[0].includes(yt)){
+    if(args[0].includes(yt)||args[0].includes(yt2)){
+        console.log("By url")
         const songInfo = await ytdl.getInfo(args[0]);
         if(!songInfo)return message.channel.send("No:heart:");
+        console.log(songInfo);
         t.setSeconds(song.TS);
         song.title = songInfo.title;
         song.url = songInfo.video_url;
@@ -321,10 +523,12 @@ async function execute(message, serverQueue,args) {
         song.tlenght=t.toISOString().substr(11,8);
 
     }else if(args[0].includes(spotify)){
-        message.reply("Command is in progress");
+        return message.reply("Command is in progress");
     }else{
+        console.log("By Name");
         const songInfo = await yts(args.toString().replace(/,/gi," ") + "lyrics");
         let vid = songInfo.videos[0];
+        console.log(vid);
         let tm=vid.timestamp.split(":");
         let seconds=0;
         let x=0;
@@ -381,7 +585,6 @@ async function execute(message, serverQueue,args) {
             queue.delete(message.guild.id);
             return message.channel.send(err);
         }
-
     } else {
         delete t;
         t=new Date(0);
