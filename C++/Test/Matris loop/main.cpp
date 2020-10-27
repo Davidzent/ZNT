@@ -6,6 +6,7 @@
 //System libraries
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 //User functions
@@ -14,6 +15,7 @@ void print(int**,int,int);
 
 //main
 int main(int argc, char** argv) {
+    ofstream f;
     //initialize and declare variables
     int row=10,
         col=10;

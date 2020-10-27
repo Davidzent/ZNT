@@ -296,4 +296,5 @@ MAP::~MAP(){
     }
     delete []map;
     delete []index;
+    cout<<"end"<<endl;
 }
