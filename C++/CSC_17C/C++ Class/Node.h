@@ -184,13 +184,6 @@ void Node<T>::push_sort(T data){
     if(this->data==NULL){
         this->data=data;
     }
-    /*else if(data<=this->data){
-        
-        Node<T> *next=new Node<T>(this->data);
-        next->ptr=ptr;
-        this->data=data;
-        ptr=next;
-    }*/
     else{
         //Initialize the front
         Node<T> *temp=this;

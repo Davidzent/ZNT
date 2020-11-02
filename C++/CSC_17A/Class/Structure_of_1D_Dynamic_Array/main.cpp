@@ -44,30 +44,31 @@ int main(int argc, char** argv) {
 }
 
 int *fill1D(int n){
-    int *a=new int[n];
+    int *a=new int[n];    //creates a dynamic array of size n
     for(int i=0;i<n;i++){
-        a[i]=rand()%90+10;//Random 2 Digit numbers
+        a[i]=rand()%90+10;  //Fills array with 2 digit numbers
     }
     return a;
 }
 
 DynAry1 *filStrc(int *a,int n){
-    DynAry1 *d1=new DynAry1;
-    d1->size=n;
-    (*d1).array=a;
-    return d1;
+    DynAry1 *d1=new DynAry1;    //points d1 to a new DynAry1
+    d1->size=n;                 //sets the variable size of the structure to n of the function
+    (*d1).array=a;              //sets the pointer array of the structure to the pointer array a of the function
+                                //(*d1).array=a same as d1->array=a just more confusing
+    return d1;                  //return the created DynAry1
 }
 
 void prnStrc(DynAry1 *d1,int perLine){
-    cout<<endl;
-    for(int i=0;i<d1->size;i++){
-        cout<<d1->array[i]<<" ";
-        if(i%perLine==(perLine-1))cout<<endl;
+    cout<<endl;                                 
+    for(int i=0;i<d1->size;i++){                
+        cout<<d1->array[i]<<" ";                //d1->array[i] gets the value from position i of the array of the structure  
+        if(i%perLine==(perLine-1))cout<<endl;   //every perLine values outputs a end of the line  
     }
-    cout<<endl;
+    cout<<endl;                                 
 }
 
 void destroy(DynAry1 *d1){
-    delete []d1->array;
-    delete d1;
+    delete []d1->array;                         //deletes the pointer array that is in the structure
+    delete d1;                                  //deletes the structure pointer
 }
