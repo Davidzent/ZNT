@@ -1,0 +1,3 @@
+The size of the array is 7
+The value 13 is in position number 3
+The mean of the array is 18

@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
- * Author: David Guijosa
- * Created on October 15, 2020, 4:55 PM
+ * Author: Dr. Mark E. Lehr
+ * Created on September 21, 2020, 4:55 PM
  * Purpose: CSC 17c preparation for analysis
  *          Counting -> permutations/combinations
  *          with or without replacement
@@ -27,7 +27,6 @@ void  compare(int,int, float &,float &,float &,float &);
 
 //Execution Begins Here!
 int main(int argc, char** argv) {
-    double prep=1;
     //Declare variables
     int nMin=2,nMax=26;
     float prep,pnorep,crep,cnorep;
@@ -43,7 +42,6 @@ int main(int argc, char** argv) {
     cout<<"                  N^M      N!/(N-M)!    (N+M-1)!/((N-1)!M!)  N!/((N-M)!M!)"<<endl<<endl;
     
     //Loop
-    
     for(int n=nMin;n<=nMax;n++){
         for(int m=0;m<=n;m++){
             //Calculate

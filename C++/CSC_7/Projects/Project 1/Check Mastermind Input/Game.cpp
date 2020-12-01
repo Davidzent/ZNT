@@ -13,7 +13,6 @@ Game::Game(int nLetter,int codesz,int atempts,bool duplica){
     status=true;
     letters=new char[nLetter];
     Plyinpt=new char*[atempts];
-    inptchk=new bool[CodeSz];
     answer=new char[CodeSz];
     nCorrct=new int[atempts];            
     nPerfc=new  int[atempts];
@@ -71,27 +70,23 @@ bool Game::chkletr(char let){
 void Game::chkinpt(){
     nCorrct[nInput]=0;
     nPerfc[nInput]=0;
+    bool temp[CodeSz];
+    bool temp2[CodeSz];
     for(int i=0;i<CodeSz;i++){
-        inptchk[i]=true;
+        temp[i]=0;
+        temp2[i]=0;
+        if(answer[i]==Plyinpt[nInput][i]){
+            nPerfc[nInput]++;
+            temp[i]=1;
+            temp2[i]=1;
+        }
     }
-    int cnt,cnt2;
-    
-    for(int i=0;i<nLetter;i++){
-        if(chkletr(letters[i])){
-            cnt=0;
-            cnt2=0;
-            for(int j=0;j<CodeSz;j++)if(letters[i]==Plyinpt[nInput][j])cnt++;
-            for(int j=0;j<CodeSz;j++)if(letters[i]==answer[j])cnt2++;
-            for(int j=0;j<CodeSz;j++)if(Plyinpt[nInput][j]==letters[i]&&letters[i]==answer[j])nPerfc[nInput]++;
-            cnt-=nPerfc[nInput];
-            cnt2-=nPerfc[nInput];
-
-            if(cnt2>0&&cnt>0){
-                for(int k=0;k<CodeSz;k++){
-                    for(int j=0;j<CodeSz;j++){
-                        if(Plyinpt[nInput][k]==answer[j]&&inptchk[k]&&j!=k&&cnt2>0&&cnt>0)nCorrct[nInput]++,inptchk[j]=false,cnt2--,cnt--;
-                    }
-                }
+    for(int i=0;i<CodeSz;i++){
+        for(int j=0;j<CodeSz;j++){
+            if(!temp[i]&&!temp2[j]&&answer[i]==Plyinpt[nInput][j]){
+                temp[i]=1;
+                temp2[j]=1;
+                nCorrct[nInput]++;
             }
         }
     }
@@ -102,7 +97,7 @@ void Game::chkinpt(){
     if(atempts==nInput+1){
             status=false;
             file<<"\nyou lose the game\n"<<"the correct answer was: "<<answer<<endl;
-        }   
+    }  
 }
 
 void Game::play(){
@@ -127,7 +122,6 @@ Game::~Game(){
     delete letters;
     delete answer;       
     delete Plyinpt; 
-    delete inptchk;
     delete nCorrct;            
     delete nPerfc;
     file.close();

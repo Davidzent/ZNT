@@ -16,7 +16,6 @@ class Game{
     private:
         
         char *answer;                       //Code to find
-        bool *inptchk;                      //is the letter already being count in checking
                 
     public:
         Game(int,int,int,bool);             //constructor

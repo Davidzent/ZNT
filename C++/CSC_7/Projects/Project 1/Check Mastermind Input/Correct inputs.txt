@@ -1,18 +1,21 @@
 
-You get the sum = 4 correct letters :13 Times
-You get the sum = 3 correct letters :476 Times
-You get the sum = 2 correct letters :3071 Times
-You get the sum = 1 correct letters :5144 Times
+You get the sum = 4 correct letters :24 Times
+You get the sum = 3 correct letters :720 Times
+You get the sum = 2 correct letters :3540 Times
+You get the sum = 1 correct letters :4420 Times
 You get the sum = 0 correct letters :1296 Times
+Total :10000 Times
 
 You get 9 time/s the correct but in the wrong spot = 4 
-You get 314 time/s the correct but in the wrong spot = 3 
-You get 1991 time/s the correct but in the wrong spot = 2 
-You get 3806 time/s the correct but in the wrong spot = 1 
-You get 3880 time/s the correct but in the wrong spot = 0 
+You get 320 time/s the correct but in the wrong spot = 3 
+You get 2178 time/s the correct but in the wrong spot = 2 
+You get 4404 time/s the correct but in the wrong spot = 1 
+You get 3089 time/s the correct but in the wrong spot = 0 
+Total :10000 Times
 
 You get 1 time/s the correct and in the correct spot = 4 
 You get 36 time/s the correct and in the correct spot = 3 
 You get 486 time/s the correct and in the correct spot = 2 
 You get 2916 time/s the correct and in the correct spot = 1 
 You get 6561 time/s the correct and in the correct spot = 0 
+Total :10000 Times

@@ -1,5 +1,6 @@
 #include "AI_SNS.h"
 void AISNS::play(){
+    
     int n4=0,n3=0,n2=0,n1=0,n0=0;
     char inpt;
     cout<<"Do you want to input an answer to find?(Y/N)\n";
@@ -11,7 +12,8 @@ void AISNS::play(){
         instans(s);
     }
     else crtans();
-    while(status){
+    
+    while(nInput<atempts){
         //cout<<"Attempt number   : "<<nInput+1<<endl;
         crtinpt();
         //cout<<psbltr<<endl;
@@ -22,6 +24,7 @@ void AISNS::play(){
         chkinpt();
         nInput++;
     }
+    
     for(int i=0;i<nInput;i++){
         int sum=nCorrct[i]+nPerfc[i];
         switch (sum){
@@ -39,6 +42,7 @@ void AISNS::play(){
     file<<"You get the sum = 2 correct letters :"<<n2<<" Times"<<endl;
     file<<"You get the sum = 1 correct letters :"<<n1<<" Times"<<endl;
     file<<"You get the sum = 0 correct letters :"<<n0<<" Times"<<endl;
+    file<<"Total :"<<n0+n1+n2+n3+n4<<" Times"<<endl;
     n4=0;n3=0;n2=0;n1=0;n0=0;
     for(int i=0;i<nInput;i++){
         int sum=nCorrct[i];
@@ -55,6 +59,7 @@ void AISNS::play(){
     file<<"You get "<<n2<<" time/s the correct but in the wrong spot = 2 \n";
     file<<"You get "<<n1<<" time/s the correct but in the wrong spot = 1 \n";
     file<<"You get "<<n0<<" time/s the correct but in the wrong spot = 0 \n";
+    file<<"Total :"<<n0+n1+n2+n3+n4<<" Times"<<endl;
     n4=0;n3=0;n2=0;n1=0;n0=0;
     for(int i=0;i<nInput;i++){
         int sum=nPerfc[i];
@@ -71,6 +76,7 @@ void AISNS::play(){
     file<<"You get "<<n2<<" time/s the correct and in the correct spot = 2 \n";
     file<<"You get "<<n1<<" time/s the correct and in the correct spot = 1 \n";
     file<<"You get "<<n0<<" time/s the correct and in the correct spot = 0 \n";
+    file<<"Total :"<<n0+n1+n2+n3+n4<<" Times"<<endl;
 }
 char* AISNS::ctNinpt(const int N){
     char *temp=new char[CodeSz];

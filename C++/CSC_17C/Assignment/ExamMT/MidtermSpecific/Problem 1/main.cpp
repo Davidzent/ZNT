@@ -30,8 +30,8 @@ int main(int argc, char** argv) {
     int beg,end;
     float timbin,timlin;
     long long int oPlin,oPbin;
-    int looplin=500000;
-    int loopbin=150000;
+    int looplin=100000;
+    int loopbin=15000;
     //initialize variables
     for(int i=0;i<size;i++){
         ary[i]=rand()%90+10;
@@ -50,8 +50,8 @@ int main(int argc, char** argv) {
     oPbin=0;
     beg=time(0);
     for(int i=0;i<loopbin;i++){
-        sort(ary,size,oPbin);
-        bins=binSrc(ary,0,size,n,oPbin);
+        //sort(ary,size,oPbin);
+        //bins=binSrc(ary,0,size,n,oPbin);
         
     }
     end=time(0);
