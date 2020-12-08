@@ -114,6 +114,7 @@ string AI(char rr,char rw){
     }
     cout<<sGuess<<endl;                             //shows guesses
     return sGuess;
+
 }
 
 bool eval(string code,string guess,char &rr,char &rw){
