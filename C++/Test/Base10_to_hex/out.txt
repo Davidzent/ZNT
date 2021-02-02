@@ -1,7 +1,8 @@
-209/16 = 13 with a remainder of 1
-13/16 = 0 with a remainder of 13
-209 base 10 is:
-	D1 in base 16
-	321 in base 8
-	11010001 in base 2
+387/16 = 24 with a remainder of 3
+24/16 = 1 with a remainder of 8
+1/16 = 0 with a remainder of 1
+387 base 10 is:
+	183 in base 16
+	603 in base 8
+	110000011 in base 2
 

@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=bubblesort
+PROJECTNAME=bubblesort_v1
 
 # Active Configuration
 DEFAULTCONF=Debug

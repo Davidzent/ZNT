@@ -70,4 +70,5 @@ class Prob2Sort
                     }
 }; 
 #endif /* PROBLEM_2_SORT_H */
-
+//0123456789\0 10
+//0123456789\0

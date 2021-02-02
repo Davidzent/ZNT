@@ -1,0 +1,37 @@
+body { 
+    margin: auto;
+    margin-top: 8px;
+}
+#game { 
+	position: fixed;
+    width: 896px;
+    margin: 0 auto; }
+#endgame {
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-family: comic sans ms;
+	font-size: 115px;
+	visibility: hidden;
+}
+div div { 
+    border: 4px solid black;
+    border-radius: 6px;
+    height: 216px;
+    width: 199px;
+    float: left;
+    margin: 8px;
+    background: black url("blank.jpg") no-repeat center;
+    background-size: cover; }
+div div:hover {
+    box-shadow: 0px 3px 10px rgba(0,0,0,.75);
+    transition: all 0.1s ease-out; }
+img {
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+    opacity: 0;
+    transition: all 0.25s ease-out; }
+.blur { visibility: hidden; }
+.showAns { opacity: 1; visibility: visible; }
+.revealed { opacity: 0; }

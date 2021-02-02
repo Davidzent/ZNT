@@ -8,12 +8,12 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 /*
  * 
  */
-void moveleft(char[],int);
 int main(int argc, char** argv) {
     int size=4;
     char str[size]={'0','1','7','9'};
@@ -29,5 +29,11 @@ int main(int argc, char** argv) {
             }
         }
     }
+    cout<<endl;
+    char s[]={'1','1','1','9','\0'};
+    do {
+    cout << s << '\n';
+  } while ( next_permutation(s,s+4) );
+    
     return 0;
 }

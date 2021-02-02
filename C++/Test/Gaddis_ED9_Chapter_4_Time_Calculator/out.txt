@@ -1,0 +1,2 @@
+Enter a number of seconds to convert
+There are 4.77 minutes and in 286 seconds 

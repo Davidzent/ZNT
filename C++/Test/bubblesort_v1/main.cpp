@@ -68,7 +68,7 @@ void bubbleSortArray(int array[], int elems)
 		for (int count = 0; count < top; count++)
 		{
                     cout<<endl;
-                    displayArray(array, SIZE);
+                    //displayArray(array, SIZE);
 			if (array[count] < array[count + 1])
 			{		
 				// the next three lines do a swap 

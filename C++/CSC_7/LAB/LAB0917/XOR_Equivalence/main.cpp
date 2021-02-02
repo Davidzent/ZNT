@@ -1,7 +1,7 @@
 /* 
  * File:   main.cpp
  * Author: David Guijosa
- * Purpose: to prove (p&&q)||~(p||q) = p^q and (p||q)&&~(p&&q)=p^q
+ * Purpose:
  * Created on September 14, 2019, 11:55 AM
  */
 
@@ -15,12 +15,13 @@ bool* AND(bool[],bool[],const int);
 bool* OR(bool[],bool[],const int);
 bool* NOT(bool[],const int);
 bool* XOR(bool[],bool[],const int);
+bool* XOR2(bool[],bool[],const int);
 void prntbol(bool[],const int);
 int main(int argc, char** argv) {
     //declare variables
     const int size=4;    
-    bool p[4]={true,true,false,false};
-    bool q[4]={true,false,true,false};
+    bool p[4]={true,true,false,false};      //P = T T F F
+    bool q[4]={true,false,true,false};      //Q = T F T F
     bool* PandQ=AND(p,q,size);
     bool* NPandQ=NOT(PandQ,size);
     bool* PorQ=OR(p,q,size);
@@ -31,23 +32,25 @@ int main(int argc, char** argv) {
     bool* PQrNPrQ=OR(PandQ,NotPorQ,size);
     bool* PrQnNPQ=AND(PorQ,NPandQ,size);
     //output/display
-    cout<<"~p              = ";
+    cout<<"~p              = ";     //Not P
     prntbol(NotP,size);
-    cout<<"~q              = ";
+    cout<<"~q              = ";     //Not Q
     prntbol(NotQ,size);
-    cout<<"p               = ";
+    cout<<"p               = ";     //P
     prntbol(p,size);
-    cout<<"q               = ";
+    cout<<"q               = ";     //Q
     prntbol(q,size);
-    cout<<"p&&q            = ";
+    cout<<"p&&q            = ";     //P and Q
     prntbol(PandQ,size);
-    cout<<"p||q            = ";
+    cout<<"p||q            = ";     //P or Q
     prntbol(PorQ,size);
-    cout<<"p^q             = ";
+    cout<<"p^q             = ";     //P XOR Q
     prntbol(PXORQ,size);
-    cout<<"(p&&q)||~(p||q) = ";
+    cout<<"p^q             = ";     //P XOR Q
+    prntbol(XOR2(p,q,size),size);
+    cout<<"(p&&q)||~(p||q) = ";     //(P and Q) or Not (P or Q)
     prntbol(PQrNPrQ,size);
-    cout<<"(p||q)&&~(p&&q) = ";
+    cout<<"(p||q)&&~(p&&q) = ";     //(P or Q) and Not(P and Q)
     prntbol(PrQnNPQ,size);
     //exit
     delete PandQ;
@@ -95,6 +98,14 @@ bool* XOR(bool one[],bool two[],const int size){
         if(one[i]||two[i])
             if(!one[i]&&two[i]||one[i]&&!two[i])OneXor2[i]=true;
         else OneXor2[i]=false;
+    }
+    return OneXor2;
+}
+bool* XOR2(bool one[],bool two[],const int size){
+    bool* OneXor2;
+    OneXor2=new bool[size];
+    for(int i=0;i<size;i++){
+        OneXor2[i]=one[i]^two[i];
     }
     return OneXor2;
 }
