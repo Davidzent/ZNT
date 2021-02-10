@@ -1,0 +1,6 @@
+Please enter the temperature to check: 
+Substance        Freezing    Boiling
+Ethyl alcohol          No        Yes
+Mercury                No        Yes
+Oxygen                 No        Yes
+Water                  No        Yes

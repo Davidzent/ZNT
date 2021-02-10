@@ -1,0 +1,6 @@
+Choose which medium the sound wave will travel in.
+1.Air
+2.Water
+3.Steel
+Enter the distance the wave will travel:
+The wave will take 2.0408 seconds
