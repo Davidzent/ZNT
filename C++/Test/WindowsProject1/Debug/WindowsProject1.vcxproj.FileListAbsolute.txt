@@ -1,0 +1,2 @@
+C:\Users\david\Desktop\ZNT\C++\Test\WindowsProject1\Debug\WindowsProject1.exe
+C:\Users\david\Desktop\ZNT\C++\Test\WindowsProject1\Debug\WindowsProject1.pdb
