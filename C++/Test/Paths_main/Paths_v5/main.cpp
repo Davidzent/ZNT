@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     char filePaths[20]="../Paths.txt";
     char fileDistance[20]="../Distance.txt";
     string from="1";
-    string to="10";
+    string to="3";
     int size;
     Map *map;
     

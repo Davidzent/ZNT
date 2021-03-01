@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     //Set the random number seed
     srand(static_cast<unsigned int>(time(0)));
     //declare variables
-    int nloops=10000;           //number of loops
+    int nloops=5;           //number of loops
     int size;                   //cards number digits
     int valid=0;                //number of valid cards
     int invalid=0;              //number of invalid cards
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         flipDig(card,size);
         //counts the number of valid cards
         validCC(card,size)?valid++:invalid++;
-        delete card;
+        delete []card;
     }
     //output
     cout<<"Valid number of cards = "<<valid<<endl;
