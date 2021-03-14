@@ -45,6 +45,9 @@ int main(int argc, char** argv) {
     //Output Located Here
     cout<<"The Column Array Size"<<endl;
     prntAry(col,rowSize);
+    
+    cout<<"The Triangular Array\n";
+    prntAry(trangl,col,indx,rowSize);//Display the Matrix
     cout<<"The Triangular Array Sorted"<<endl;
     mrkSort(col,indx,rowSize);//Sort the columns with an index
     prntAry(trangl,col,indx,rowSize);//Display the Matrix with Columns sorted
