@@ -27,7 +27,6 @@ Node<int> *filSort(int);
 int main(int argc, char** argv) {
     //Random Number seed set once here
     srand(static_cast<unsigned int>(time(0)));
-    
     //Declare and initialize variables
     int loop = 10;
     int size = 50000;

@@ -8,7 +8,7 @@ const Member = require('./Models/member');
 const Score  = require('./Models/Scores');
 const Task   = require('./Models/Task');
 const Boss   = require('./Models/ClanBoss');
-const ytdl=require('ytdl-core');
+const ytdl=require('ytdl-core-discord');
 const yts=require('yt-search');
 const queue = new Map();
 
@@ -76,7 +76,6 @@ bot.on("message", (message) =>{
         if(message.author.username=="Mudae"){
             message.react('💘');
         }
-        console.log(message.author);
         return 0;
     }
     
@@ -523,14 +522,14 @@ async function execute(message, serverQueue,args) {
     
     if(args[0].includes(yt)||args[0].includes(yt2)){
         console.log("By url")
-        const songInfo = await ytdl.getInfo(args[0]);
+        const songInfo = await (await ytdl.getInfo(args[0])).videoDetails;
         if(!songInfo)return message.channel.send("No:heart:");
         console.log(songInfo);
         t.setSeconds(song.TS);
         song.title = songInfo.title;
-        song.url = songInfo.video_url;
-        song.TS = songInfo.length_seconds;
-        song.thumbnail = songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url;
+        song.url = songInfo.video_url.toString();
+        song.TS = songInfo.lengthSeconds;
+        song.thumbnail = songInfo.thumbnails[0].url;
         song.tlenght=t.toISOString().substr(11,8);
 
     }else if(args[0].includes(spotify)){
@@ -583,6 +582,7 @@ async function execute(message, serverQueue,args) {
         queue.set(message.guild.id, queueContruct);
         // Pushing the song to our songs array
         queueContruct.songs.push(song);
+        
         try {
             // Here we try to join the voicechat and save our connection into our object.
             var connection = await voiceChannel.join();
@@ -624,7 +624,7 @@ async function execute(message, serverQueue,args) {
   }
 }
 
-function play(guild, song) {
+async function play(guild, song) {
     let t = new Date(0);
     const serverQueue = queue.get(guild.id);
     if (!song) {
@@ -632,7 +632,12 @@ function play(guild, song) {
         queue.delete(guild.id);
         return;
     }
-    let dispatcher = serverQueue.connection.play(ytdl(song.url,{filter: "audioonly"})).on("finish", () => {
+    //console.log(song.url);
+    let dispatcher = serverQueue.connection.play(await ytdl(song.url,{
+        //filter: "audioonly",
+        //opusEncoded: true,
+        //encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
+    })).on("finish", () => {
         serverQueue.songs.shift();
         serverQueue.size--;
         serverQueue.time -= song.TS;

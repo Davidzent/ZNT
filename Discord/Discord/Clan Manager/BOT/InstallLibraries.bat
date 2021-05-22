@@ -1,6 +1,7 @@
-npm install discord.js
-npm install ytsearch
-npm install ytdl-core
-npm install sequelize.js
-npm install mysql2
+%~d1
+call npm install discord.js@latest
+call npm install yt-search@latest
+call npm install ytdl-core-discord@latest
+call npm install sequelize@latest
+call npm install mysql2@latest
 PAUSE

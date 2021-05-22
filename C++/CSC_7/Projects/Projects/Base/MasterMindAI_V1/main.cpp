@@ -25,7 +25,8 @@ int main(int argc, char** argv) {
     string code,guess;  //code to break, and current guess
     char rr,rw;         //right digit in right place vs. wrong place
     int nGuess;         //number of guesses
-    
+    cin>>nGuess;
+    if (cin.fail()){exit(1);}
     //Initialize Values
     nGuess=0;
     code=set();
@@ -52,18 +53,70 @@ int main(int argc, char** argv) {
 }
 
 string AI(char rr,char rw){
-    static int guess=-1;
-    guess++;
-    string sGuess="0000";
-    int n1000=(guess-guess%1000)/1000;
-    int n100=(guess-guess%100)/100-10*n1000;
-    int n10=(guess%100-guess%10)/10;
-    int n1=guess%10;
-    sGuess[0]=n1000+'0';
-    sGuess[1]=n100+'0';
-    sGuess[2]=n10+'0';
-    sGuess[3]=n1+'0';
+    static string code;     //4 characters in Code
+    static string comb[24]; //24 Possible combinations of Code
+    static int ncomb=0;     //the possition of one of the 24 combinations
+    static bool st=false;   //if the comvinations have been created
+    static int CodeSz=4;    //lenght of code
+    static int guess=0;     //guess number
+    static string sGuess="0000";    //Guess to be return
+    if(guess++!=0){
+        if(code.size()<CodeSz){
+            for(int i=0;i<rr+rw;i++)code+=sGuess[0];    //adds an amount of character to the code
+            for(int i=0;i<CodeSz;i++)sGuess[i]++;       //creates the next guess by increasing the last Guess
+        }
+        if(code.size()==CodeSz){              
+            if(!st){                                    //Creates combinations only once
+                char temp;
+                char temp2;
+                for(int i=0;i<24;i++){                  
+                    if(i%6==0)comb[i]=code;             //start the combination type EX: ABCD | BCDA | CDAB | DABC             
+                    else if(i%6==5){
+                        //Swaps the last two to create a new combination 
+                        comb[i]=comb[i-1];
+                        temp=comb[i][CodeSz-2];
+                        comb[i][CodeSz-2]=comb[i][CodeSz-1];
+                        comb[i][CodeSz-1]=temp;
+      
+                        //set the code to the previous combination type
+                        code=comb[i-5];
+                        temp=code[0];
+      
+                        //creates the new combination type
+                        for(int j=CodeSz-1;j>=0;j--){
+                            if(j==CodeSz-1){
+                                temp2=code[j];
+                                code[j]=temp;
+                                temp=temp2;
+                            }
+                            else{
+                                temp2=code[j];
+                                code[j]=temp;
+                                temp=temp2;
+                            }
+                        }
+                    }
+                    else if(i%2==1){                 //Swaps the last two to create a new combination 
+                        comb[i]=comb[i-1];
+                        temp=comb[i][CodeSz-2];
+                        comb[i][CodeSz-2]=comb[i][CodeSz-1];
+                        comb[i][CodeSz-1]=temp;
+                    }
+                    else if(i%2==0){                //swaps the second one and the last one to create a new combination
+                        comb[i]=comb[i-1];
+                        temp=comb[i][CodeSz-3];
+                        comb[i][CodeSz-3]=comb[i][CodeSz-1];
+                        comb[i][CodeSz-1]=temp;
+                    }
+                }
+                st=true;
+            }
+            sGuess=comb[ncomb++];
+        }
+    }
+    cout<<sGuess<<endl;                             //shows guesses
     return sGuess;
+
 }
 
 bool eval(string code,string guess,char &rr,char &rw){

@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     //Set the random number seed
     srand(static_cast<unsigned int>(time(0)));
     const int SIZE=12;
-    char crdCard[SIZE];
+    char crdCard[SIZE]="cout<<crdCard<<endl;";
     //Prepare for Luhn encoding
     cout<<"A random number created in Prep for Luhn Digit"<<endl;
     prpLuhn(crdCard,SIZE-2);

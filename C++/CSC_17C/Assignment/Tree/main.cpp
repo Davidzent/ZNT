@@ -57,6 +57,7 @@ int main(){
     if (tree == NULL){cout<<"Tree is Empty"<<endl;}
     cout<<"\nBalanced Tree:"<<endl;
     tree->In_ord(tree);
+    tree->display(tree);
     //Exit stage right!
     return 0;
 }

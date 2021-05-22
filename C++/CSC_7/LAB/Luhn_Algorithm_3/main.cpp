@@ -31,17 +31,17 @@ int main(int argc, char** argv) {
     //Set the random number seed
     srand(static_cast<unsigned int>(time(0)));
     //declare variables
-    int nloops=10000;           //number of loops
+    int nloops=100000;           //number of loops
     int size;                   //cards number digits
     int valid=0;                //number of valid cards
     int invalid=0;              //number of invalid cards
     //Calculations
     for(int i=0;i<nloops;i++){
         //create a random type of card
-        char* card=genCC(rand()%4,size);
+        char* card=genCC(0,size);
         //flip one digit
-        //transpos(card,size);
-        //transpos(card,size);
+        flipDig(card,size);
+        flipDig(card,size);
         
         //counts the number of valid cards
         validCC(card,size)?valid++:invalid++;
@@ -57,7 +57,8 @@ int main(int argc, char** argv) {
 }
 void transpos(char*cc,int n){
     int x=rand()%n;
-    cc[x]=!cc[x];
+    int y=rand()%10+'0';
+    cc[x]=y;
 }
 void prpLuhn(char *cc,int n,int start){
     //Create a random cc in prep for Luhn checksum

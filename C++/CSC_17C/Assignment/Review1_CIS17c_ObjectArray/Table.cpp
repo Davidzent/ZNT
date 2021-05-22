@@ -18,7 +18,7 @@ Table::Table(int szRow,int szCol){
 }
 Table::~Table(){
     for(int i=0;i<szRow;i++){
-        delete records[i];
+        delete []records[i];
     }
     delete []records;
 }

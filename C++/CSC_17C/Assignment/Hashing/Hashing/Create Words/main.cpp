@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -23,10 +24,15 @@ int main(int argc, char** argv) {
     //set random seed
     srand(static_cast<unsigned int>(time(0)));
     //declare variables
-    int size=50000000;    //Number of words
+    int size=500;    //Number of words
     int wordsz=20;   //Size of words
     char flname[10]="words.txt";
     string *array=fillary(size,wordsz);
+    string *array2=new string[size];
+    array2=array;
+    float x=11*-11;
+    cout<<x<<endl;
+    cout<<exp(-121)<<endl;
     //print array for test
     //prnt(array,size);
     //Send words to a file
@@ -43,8 +49,8 @@ string* fillary(int n,int wordsz){
     char letter;
     for(int i=0;i<n;i++){
         for(int j=0;j<wordsz;j++){
-            if(j==0)letter=rand()%25+65;
-            else letter=rand()%25+97;
+            if(j==0)letter=rand()%26+65;
+            else letter=rand()%26+97;
             word+=letter;
         }
         ary[i]=word;

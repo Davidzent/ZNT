@@ -14,7 +14,7 @@ using namespace std;
 
 //User Libraries
 #include "PlusTab.h"
-
+#include "Table.cpp"
 //Global Constants
 
 //Function Prototype

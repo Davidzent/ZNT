@@ -90,9 +90,7 @@ void Game::chkinpt(){
             }
         }
     }
-    file<<"answer -> "<<answer<<endl;
-    file<<"You Find "<<nCorrct[nInput]<<" correct letters in the wrong spot and "
-            <<nPerfc[nInput]<<" letters in the right spot"<<" the sum = "<<nCorrct[nInput]+nPerfc[nInput]<<endl;
+    file<<answer<<"\t"<<Plyinpt[nInput]<<"\t"<<nCorrct[nInput]<<"\t"<<nPerfc[nInput]<<"\t\t\t"<<nCorrct[nInput]+nPerfc[nInput]<<endl;
     //if(nPerfc[nInput]==CodeSz)status=false,cout<<"You Won the Game\n";
     if(atempts==nInput+1){
             status=false;
@@ -102,8 +100,9 @@ void Game::chkinpt(){
 
 void Game::play(){
     crtans();
+    
+   
     while(status){
-        cout<<"Enter your guess : ";
         do{
             for(int i=0;i<CodeSz;i++){
                 cin>>Plyinpt[nInput][i];

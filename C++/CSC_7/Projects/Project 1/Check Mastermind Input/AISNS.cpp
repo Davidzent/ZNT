@@ -12,15 +12,14 @@ void AISNS::play(){
         instans(s);
     }
     else crtans();
-    
+     file<<"Code\tGuess\t#Right\tRight in wrong spot\tsum"<<endl;
     while(nInput<atempts){
         //cout<<"Attempt number   : "<<nInput+1<<endl;
         crtinpt();
         //cout<<psbltr<<endl;
         //for(int i=0;i<nLetter;i++)if(stats[i]!=0)cout<<letters[i];
-        file<<"\nEnter your guess : ";
-        for(int i=0;i<CodeSz;i++)file<<Plyinpt[nInput][i];
-        file<<endl;
+        //for(int i=0;i<CodeSz;i++)file<<Plyinpt[nInput][i];
+        //file<<endl;
         chkinpt();
         nInput++;
     }

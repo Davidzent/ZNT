@@ -55,7 +55,7 @@ var line=0;//how many lines are deleted
 var level=0;
 var scoreTetris=0;//used to see if a tetris is scored in a row
 var pause=false;//used to determine if the game is paused
-var pausecounter=0;//true state
+var pausecounter=false;//true state
 var level = 1;//Used to indicate current speed
 var threshold = 0;//Used to increase speed every 500 points
 
@@ -134,10 +134,10 @@ var next = {
 };
 
 function paused(){
-    if(pausecounter===0){
+    if(!pausecounter){
         pausetext(pausecounter);
     }
-    if(pausecounter===1){
+    if(pausecounter){
 
         endContext.beginPath();    // clear existing drawing paths
         endContext.save();         // store the current transformation matrix
@@ -149,12 +149,7 @@ function paused(){
         
         pausetext(pausecounter);
     }
-    if(pausecounter===0){
-        pausecounter=1;
-    }
-    else{
-        pausecounter=0;
-    }
+    pausecounter=!pausecounter;
     pause=!pause;
     
     if(!playGame){

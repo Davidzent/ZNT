@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Using String Variables</title>
+</head>
+
+<body>
+	<h2>This Is Assignment A2P1</h2>
+	
+	<script>
+
+		document.write("check point 01");
+		
+		var first = prompt("Please enter your first name:","");
+		var gpa = prompt("Please enter your GPA, "+ first + ".");
+
+		gpa = parseFloat(gpa);
+		var grade;
+
+		if(gpa <= 0.7){
+			document.write("A");
+			grade = "A"
+		}
+		if(gpa >= 3.7){
+			document.write("A");
+			grade = "A"
+		}
+		else if(gpa > 2.6){
+			document.write("A");
+			grade = "A"
+		}
+		else if(gpa >= 1.6){
+			document.write("A");
+			grade = "A"
+		}
+		else if(gpa > 0.7){
+			document.write("A");
+			grade = "A"
+		}
+	</script>
+</body>
+</html lang="en">
+
+		
