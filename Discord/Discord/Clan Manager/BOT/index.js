@@ -8,11 +8,12 @@ const Member = require('./Models/member');
 const Score  = require('./Models/Scores');
 const Task   = require('./Models/Task');
 const Boss   = require('./Models/ClanBoss');
-const ytdl=require('ytdl-core-discord');
+const ytdl=require('ytdl-core');
 const yts=require('yt-search');
 const queue = new Map();
 
 /****************************************************************************************************************************** */
+
 const spm = "<@297774423715348480> Mimi";//297774423715348480
 const comand="-Help\n-Hello\n-play\n-skip\n-queue\n-join\n-stop\n-nini\n-0\n\n\n-#\n-show\n!chc\n!del\n!add";
 const meaning="Show available commands\nSaludate\nplays a song\nskip current song"
@@ -117,6 +118,7 @@ bot.on("message", (message) =>{
         let t=new Date(0);
         let repeat=1;
         message.reply("Skiping song");  
+        console.log(args);
         if(args[0])repeat=parseInt(args[0]);
         repeat--;
         skip(message, serverQueue);
@@ -259,12 +261,31 @@ bot.on("message", (message) =>{
     /********************************************************************************************************************************************************/
     //Experiments / Unofficial commands
     else if(cmd.startsWith(prefix+"NINI")){
-        message.delete();
         let sentence="";
-        for(let i=0;i<args.length;i++){
-            sentence+=args[i].replace(/a|e|o|u/gi,"i")+" ";
+        if (message.reference){
+            let test="";
+            //console.log(message.reference);
+            message.channel.messages.fetch({ limit: 50 }).then(msgs => {
+                //console.log(`Received ${msgs.size} messages`);
+                //Iterate through the messages here with the variable "messages".
+                
+                msgs.forEach(msgs => {
+                    if(msgs.id==message.reference.messageID){
+                        //console.log(msgs.content.replace(/a|e|o|u/gi,"i")+" ");
+                        sentence+=msgs.content.replace(/a|e|o|u/gi,"i");
+                        message.channel.send(sentence);
+                        message.delete();
+                    }
+                    });
+                });
         }
-        message.channel.send(sentence);
+        else{
+            for(let i=0;i<args.length;i++){
+                sentence+=args[i].replace(/a|e|o|u/gi,"i")+" ";
+            }
+            message.channel.send(sentence);
+            message.delete();
+        }
     }
     else if(cmd===prefix+"T"){
         message.delete();
@@ -308,7 +329,7 @@ async function random(message, serverQueue,args){
         args[args.length-1]="";
     }
     for(let i=0;i<repeat;i++){
-        console.log("run "+i);
+        //console.log("run "+i);
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel)
             return message.channel.send("You need to be in a voice channel to play music!");
@@ -504,7 +525,7 @@ async function execute(message, serverQueue,args) {
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
         return message.channel.send("I need the permissions to join and speak in your voice channel!");
     }
-    console.log(args);
+    //console.log(args);
     let spotify = "/open.spotify.com/";
     let yt="/www.youtube.com/";
     let yt2="/youtube.com/";
@@ -524,11 +545,11 @@ async function execute(message, serverQueue,args) {
         console.log("By url")
         const songInfo = await (await ytdl.getInfo(args[0])).videoDetails;
         if(!songInfo)return message.channel.send("No:heart:");
-        console.log(songInfo);
-        t.setSeconds(song.TS);
+        //console.log(songInfo.lengthSeconds);
+        t.setSeconds(songInfo.lengthSeconds);
         song.title = songInfo.title;
         song.url = songInfo.video_url.toString();
-        song.TS = songInfo.lengthSeconds;
+        song.TS = parseInt(songInfo.lengthSeconds);
         song.thumbnail = songInfo.thumbnails[0].url;
         song.tlenght=t.toISOString().substr(11,8);
 
@@ -538,7 +559,7 @@ async function execute(message, serverQueue,args) {
         console.log("By Name");
         const songInfo = await yts(args.toString().replace(/,/gi," ") + "lyrics");
         let vid = songInfo.videos[0];
-        console.log(vid);
+        //console.log(vid);
         let tm=vid.timestamp.split(":");
         let seconds=0;
         let x=0;
@@ -592,7 +613,7 @@ async function execute(message, serverQueue,args) {
             queueContruct.size++; 
         } catch (err) {
             // Printing the error message if the bot fails to join the voicechat
-            console.log(err);
+            //console.log(err);
             queue.delete(message.guild.id);
             return message.channel.send(err);
         }
@@ -600,8 +621,9 @@ async function execute(message, serverQueue,args) {
         delete t;
         t=new Date(0);
         let temp = new Date(0);
+        console.log(serverQueue.time);
         temp.setSeconds(serverQueue.time);
-
+        console.log(temp.toISOString().substr(11,8));
         //Increase the time for the queue to end
         serverQueue.time += parseInt(song.TS);
         t.setSeconds(serverQueue.time);
@@ -854,7 +876,7 @@ async function Change(message,args){
             message.channel.send(s);
         }
         else{
-            console.log(args[args.length-2]);
+            //console.log(args[args.length-2]);
             message.channel.send("That is Wrong");
         }
     }
