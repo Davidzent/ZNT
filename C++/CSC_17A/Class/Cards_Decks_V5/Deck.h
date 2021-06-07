@@ -69,10 +69,9 @@ void Deck<T>::shuffle(int nShuffle){
 template <class T>
 int *Deck<T>::deal(int n){
     static int deal=0;
-    int last=deal+n;
-    if(deal+n>nCards-1)deal=0;
-    int * hand=new int[n];
-    for(int i=deal,j=0;deal<last;deal++,j++){
+    int last=(deal+n+1)%nCards;
+    int *hand=new int[n];
+    for(int j=0;deal%nCards!=last;deal++,j++){
         hand[j]=indx[deal];
     }
     return hand;

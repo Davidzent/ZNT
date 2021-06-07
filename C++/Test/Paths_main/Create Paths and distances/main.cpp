@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
     //Random seed
     srand(static_cast<unsigned int>(time(0)));
     //variables
-    int size = 3;
+    int size = 10;
     int x=0;
     ofstream paths;
     ofstream distance;

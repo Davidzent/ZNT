@@ -5,9 +5,7 @@
  * Created on December 3, 2020, 4:44 PM
  */
 
-#include <cstdlib>
 #include <iostream>
-#include <ctime>
 #include <algorithm>
 using namespace std;
 
@@ -16,7 +14,7 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     int size=4;
-    char str[size]={'0','1','7','9'};
+    char str[size]={'R','O','B','W'};
     for(int i=0;i<size;i++){
         for(int j=0;j<size;j++){
             if(i==j)continue;
@@ -30,10 +28,11 @@ int main(int argc, char** argv) {
         }
     }
     cout<<endl;
-    char s[]={'1','1','1','9','\0'};
+    cout<<"Algorithm library"<<endl;
+    char s[]={'R','O','B','W','\0'};
     do {
     cout << s << '\n';
-  } while ( next_permutation(s,s+4) );
+    } while (next_permutation(s,s+4));
     
     return 0;
 }

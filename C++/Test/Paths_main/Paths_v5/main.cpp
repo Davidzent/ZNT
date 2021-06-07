@@ -103,7 +103,7 @@ pair<string, float> findpathR(Map map, string a, string b, string s,float distan
         min.first+=a;
         return min;
     }
-    if(s.find(a)==string::npos){
+    if(s.find("->"+a)==string::npos){
         s+=a;
         s.push_back('-');
         s.push_back('>');

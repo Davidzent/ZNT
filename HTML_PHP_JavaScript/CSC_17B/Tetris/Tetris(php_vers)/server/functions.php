@@ -29,7 +29,7 @@ function check_login($conn, $email = '', $pass = '') {
 	if (empty($errors)) { 
 		// Retrieve the user_id and first_name for that email/password combination:
 		$q = "SELECT account_id, username FROM tetris_entity_accounts WHERE email='$e' AND password='$p'";		
-		$r = @mysqli_query ($conn, $q); // Run the query.
+		$r = mysqli_query ($conn, $q); // Run the query.
 		
 		if (mysqli_num_rows($r) == 1) {
 			

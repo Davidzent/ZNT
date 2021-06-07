@@ -21,29 +21,24 @@ int main(int argc, char** argv) {
 	bool ascending=true;
 	ifstream infile;
 	infile.open("Problem2.txt",ios::in);
-	char *ch2=new char[9*16];
+	char *ch2=new char[10*16];
 	char *ch2p=ch2;
 	while(infile.get(*ch2)){cout<<*ch2;ch2++;}
         cout<<endl<<endl;
-        for(int i=0;i<9;i++){
-            for(int j=0;j<16;j++)
-            cout<<ch2p[i*9+j];
-        }  
-        cout<<endl;
 	infile.close();
 	cout<<endl;
 	cout<<"Sorting on which column"<<endl;
 	int column;
 	cin>>column;
-	char *zc=rc.sortArray(ch2p,9,16,column,ascending);
-	for(int i=0;i<9;i++)
+	/*char *zc=rc.sortArray(ch2p,10,16,column,ascending);
+	for(int i=0;i<10;i++)
 	{
 		for(int j=0;j<16;j++)
 		{
 			cout<<zc[i*16+j];
 		}
-	}
-	delete []zc;
+	}*/
+	//delete []zc;
 	cout<<endl;
     return 0;
 }
