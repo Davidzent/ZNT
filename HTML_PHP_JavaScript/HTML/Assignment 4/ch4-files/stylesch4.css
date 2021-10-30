@@ -1,0 +1,76 @@
+/*   Assignment 4 Part 2  David Guijosa    */
+
+body {
+    display: block;
+    margin: 8px;
+    font-family: Centaur, "Century Gothic", Arial;
+    font-size: 14pt;
+}
+
+div {
+    text-align: center;
+}
+
+table {
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: #545859;
+    border-style: ridge;
+    border-width: 10px;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.menu {
+    text-align: center;
+    width: 60%;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+tr.stripe{
+    background-color: #d8d8ce;
+}
+
+
+.menuicon {
+    width: 23%;
+}
+
+th {
+    color: white;
+    background-color: #757775;
+}
+
+td {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.menupipe {
+    width: 1%;
+}
+
+p {
+    margin-left: 10pt;
+    margin-right: 10pt;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+caption {
+    caption-side: bottom;
+    font-style: italic;
+}

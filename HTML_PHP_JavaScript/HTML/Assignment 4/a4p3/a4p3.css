@@ -1,0 +1,63 @@
+/*
+ CSS File for A4P3 by Joe Student
+*/
+ 
+body {
+	background: #FFFFDE url(bg_beansbar.jpg) repeat-x; color: #4F221D; 
+	margin: 0 5%; 
+	font-family: Verdana, Arial, sans-serif;
+	}
+h1 {
+	color: #D6D68D; 
+	font-size: 36px; 
+	line-height: 52px; 
+	margin-top: 10px; 
+	margin-bottom: 15px; 
+	font-family: Georgia, Times, serif;
+}
+nav {
+	margin-top: 15px;
+}
+nav a {
+	text-decoration: none;
+}
+nav a:link, nav a:visited {
+	color: #4F221D;
+	margin-right: 15px;
+}
+nav a:hover, nav a:active {
+	background: #E6E69D;
+	color: black;
+}
+nav a#thispage {
+	font-weight: bold;
+	background: transparent;
+	color: #4F221D;
+}
+h2 {
+	margin-top: 30px; 
+	font-family: Georgia, Times, serif;
+}
+img#musicpic {
+	float: right;
+	margin-left: 30px;
+	border: 2px brown solid;
+}
+table#datatable {
+	border-collapse: collapse;
+	background: #EFEFCE;	
+}
+table#datatable th, table#datatable td {
+	border: solid 1px black; 
+	padding: 10px; 
+	text-align: center;
+}
+table#datatable caption {
+	 text-align: center; 
+	 font-weight: bold;
+	 margin-bottom: 5px;
+}
+footer {
+	margin-top: 35px; 
+	font-size: 85%;
+}

@@ -10,6 +10,7 @@ const Database=require('./extras/Database');
 
 //Music
 const Music=require('./extras/Music');
+let serverQueue;
 
 //Discord extras
 const bot = new Discord.Client();
@@ -37,7 +38,6 @@ bot.on('ready', () => {
     });
     console.log('This bot is online!');
     Database.init();
-
 });
 /********************************************************************************************************************************************************/
 //New Members
@@ -52,6 +52,12 @@ bot.on ("guildMemberAdd", member => {
 });*/
 //Do something when a message is send
 
+bot.on("voiceStateUpdate", (state)=>{
+    if(!state.connection){
+        Music.queue.delete(state.guild.id);
+        
+    }
+})
 
 bot.on("message", (message) =>{
     //if the message came from a bot do nothing
@@ -67,7 +73,7 @@ bot.on("message", (message) =>{
     let g = "none";
     let mr = "none";
     if(message.guild)g = Music.queue.get(message.guild.id);
-    const serverQueue = g;
+    serverQueue = g;
     if(message.guild) mr=message.member.roles.cache;
     let mrol = mr;
     let cmd = message.content.toUpperCase();
@@ -133,6 +139,7 @@ bot.on("message", (message) =>{
         else {
             message.reply("Not in required role ask the owner for permission.");
         }
+        console.log("work");
     }
     /********************************************************************************************************************************************************/
     //Emojis

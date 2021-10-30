@@ -1,6 +1,5 @@
 //Conectors
-const ytdl=require('ytdl-core');
-const yts=require('yt-search');
+const YTPlay=require('./YTPlay/YTPlay');
 
 //Discord Music queue
 const queue = new Map();
@@ -37,36 +36,36 @@ queue,
         let songInfo;
         if(args[0].includes(yt)||args[0].includes(yt2)){
             //console.log("By url")
-            songInfo = await (await ytdl.getInfo(args[0])).videoDetails;
+            songInfo = await (await YTPlay.getInfo(args[0])).videoDetails;
             if(!songInfo)return message.channel.send("No:heart:");
             //console.log(songInfo.lengthSeconds);
             t.setSeconds(songInfo.lengthSeconds);
             song.title = songInfo.title;
             song.url = songInfo.video_url.toString();
             song.TS = parseInt(songInfo.lengthSeconds);
-            song.thumbnail = songInfo.thumbnails[0].url;
+            song.thumbnail = songInfo.thumbnail[0].url;
             song.tlenght=t.toISOString().substr(11,8);
 
         }else if(args[0].includes(spotify)){
             return message.reply("Command is in progress");
         }else{
-            //console.log("By Name");
-            songInfo = await yts(args.toString().replace(/,/gi," ") + "lyrics");
-            let vid = songInfo.videos[0];
-            //await console.log(vid);
-            let tm=vid.timestamp.split(":");
-            let seconds=0;
-            let x=0;
-            for(let i=parseInt(tm.length)-1;i>=0;i--){
-                seconds+=parseInt(tm[i])*Math.pow(60,x++);
-            }
-            song.title=vid.title;
-            song.url = vid.url;
-            song.tlenght = vid.timestamp;
-            song.thumbnail = vid.thumbnail;
-            song.TS=seconds;
+            //default search by name (going to change just temporaly)
+            //get the first search in youtube
+            url = await (await YTPlay.getFirstSearch(args));
+
+            //get the info with the link 
+            songInfo = await (await YTPlay.getInfo(url)).videoDetails;
+            if(!songInfo)return message.channel.send("No:heart:");
+            //console.log(songInfo.lengthSeconds);
+            t.setSeconds(songInfo.lengthSeconds);
+            song.title = songInfo.title;
+            song.url = songInfo.video_url.toString();
+            song.TS = parseInt(songInfo.lengthSeconds);
+            song.thumbnail = songInfo.thumbnail[0].url;
+            song.tlenght=t.toISOString().substr(11,8);
+            
         }
-        console.log(songInfo);
+        //console.log(songInfo);
         if (!serverQueue) {
             // Creating the contract for our queue
             const queueContruct = {
@@ -193,12 +192,11 @@ queue,
         if(serverQueue.connection.dispatcher)serverQueue.connection.dispatcher.end();
     },
 
-    stop: function (message, serverQueue) {
+    stop: function (message,serverQueue) {
         if (!message.member.voice.channel)
             return message.channel.send("You have to be in a voice channel to stop the music!");
         if(!serverQueue)return message.channel.send("There is no play list to stop in your current voice channel");
-        if(serverQueue.songs!=undefined)serverQueue.songs = [];
-        if(serverQueue.connection.dispatcher)serverQueue.connection.dispatcher.end();
+        serverQueue.voiceChannel.leave();
     }
 }
 
@@ -211,8 +209,8 @@ async function play(guild, song) {
         return;
     }
     //console.log(song.url);
-    let dispatcher = serverQueue.connection.play(await ytdl(song.url,{
-        filter: "audioonly",
+    let dispatcher = serverQueue.connection.play(await YTPlay(song.url,{
+        filter: "audio",
         //opusEncoded: true,
         //encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
     })).on("finish", () => {
