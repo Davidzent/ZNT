@@ -1,0 +1,1166 @@
+.aligncenter {
+  text-align: center;
+}
+.aligncenterImp {
+  text-align: center !important;
+}
+.alignleft {
+  text-align: left;
+}
+.alignleftImp {
+  text-align: left !important;
+}
+.alignright {
+  text-align: right;
+}
+.alignrightImp {
+  text-align: right !important;
+}
+.alignjustify {
+  text-align: justify;
+}
+.alignjustifyImp {
+  text-align: justify !important;
+}
+.strikeThrough {
+  text-decoration: line-through;
+}
+.block {
+  display: block;
+}
+.blockImp {
+  display: block !important;
+}
+.inline {
+  display: inline;
+}
+.inlineImp {
+  display: inline !important;
+}
+.inlineBlock {
+  display: inline-block;
+}
+.inlineBlockImp {
+  display: inline-block !important;
+}
+.flex {
+  display: flex;
+}
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.none {
+  display: none;
+}
+.noneImp {
+  display: none !important;
+}
+.hidden {
+  visibility: hidden;
+}
+.clear {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.floatleft {
+  float: left !important;
+}
+.floatright {
+  float: right !important;
+}
+.margin0 {
+  margin: 0px;
+}
+.margin0Top {
+  margin-top: 0px;
+}
+.margin0Right {
+  margin-right: 0px;
+}
+.margin0Bottom {
+  margin-bottom: 0px;
+}
+.margin0Left {
+  margin-left: 0px;
+}
+.margin5 {
+  margin: 5px;
+}
+.margin5Top {
+  margin-top: 5px;
+}
+.margin5Right {
+  margin-right: 5px;
+}
+.margin5Bottom {
+  margin-bottom: 5px;
+}
+.margin5Left {
+  margin-left: 5px;
+}
+.margin10 {
+  margin: 10px;
+}
+.margin10Top {
+  margin-top: 10px;
+}
+.margin10Right {
+  margin-right: 10px;
+}
+.margin10Bottom {
+  margin-bottom: 10px;
+}
+.margin10Left {
+  margin-left: 10px;
+}
+.margin15 {
+  margin: 15px;
+}
+.margin15Top {
+  margin-top: 15px;
+}
+.margin15Right {
+  margin-right: 15px;
+}
+.margin15Bottom {
+  margin-bottom: 15px;
+}
+.margin15Left {
+  margin-left: 15px;
+}
+.margin20 {
+  margin: 20px;
+}
+.margin20Top {
+  margin-top: 20px;
+}
+.margin20Right {
+  margin-right: 20px;
+}
+.margin20Bottom {
+  margin-bottom: 20px;
+}
+.margin20Left {
+  margin-left: 20px;
+}
+.margin0Important {
+  margin: 0px !important;
+}
+.margin0TopImportant {
+  margin-top: 0px !important;
+}
+.margin0RightImportant {
+  margin-right: 0px !important;
+}
+.margin0BottomImportant {
+  margin-bottom: 0px !important;
+}
+.margin0LeftImportant {
+  margin-left: 0px !important;
+}
+.margin5Important {
+  margin: 5px !important;
+}
+.margin5TopImportant {
+  margin-top: 5px !important;
+}
+.margin5RightImportant {
+  margin-right: 5px !important;
+}
+.margin5BottomImportant {
+  margin-bottom: 5px !important;
+}
+.margin5LeftImportant {
+  margin-left: 5px !important;
+}
+.margin10Important {
+  margin: 10px !important;
+}
+.margin10TopImportant {
+  margin-top: 10px !important;
+}
+.margin10RightImportant {
+  margin-right: 10px !important;
+}
+.margin10BottomImportant {
+  margin-bottom: 10px !important;
+}
+.margin10LeftImportant {
+  margin-left: 10px !important;
+}
+.margin15Important {
+  margin: 15px !important;
+}
+.margin15TopImportant {
+  margin-top: 15px !important;
+}
+.margin15RightImportant {
+  margin-right: 15px !important;
+}
+.margin15BottomImportant {
+  margin-bottom: 15px !important;
+}
+.margin15LeftImportant {
+  margin-left: 15px !important;
+}
+.margin20Important {
+  margin: 20px !important;
+}
+.margin20TopImportant {
+  margin-top: 20px !important;
+}
+.margin20RightImportant {
+  margin-right: 20px !important;
+}
+.margin20BottomImportant {
+  margin-bottom: 20px !important;
+}
+.margin20LeftImportant {
+  margin-left: 20px !important;
+}
+.padding0 {
+  padding: 0px;
+}
+.padding0Top {
+  padding-top: 0px;
+}
+.padding0Right {
+  padding-right: 0px;
+}
+.padding0Bottom {
+  padding-bottom: 0px;
+}
+.padding0Left {
+  padding-left: 0px;
+}
+.padding5 {
+  padding: 5px;
+}
+.padding5Top {
+  padding-top: 5px;
+}
+.padding5Right {
+  padding-right: 5px;
+}
+.padding5Bottom {
+  padding-bottom: 5px;
+}
+.padding5Left {
+  padding-left: 5px;
+}
+.padding10 {
+  padding: 10px;
+}
+.padding10Top {
+  padding-top: 10px;
+}
+.padding10Right {
+  padding-right: 10px;
+}
+.padding10Bottom {
+  padding-bottom: 10px;
+}
+.padding10Left {
+  padding-left: 10px;
+}
+.padding15 {
+  padding: 15px;
+}
+.padding15Top {
+  padding-top: 15px;
+}
+.padding15Right {
+  padding-right: 15px;
+}
+.padding15Bottom {
+  padding-bottom: 15px;
+}
+.padding15Left {
+  padding-left: 15px;
+}
+.padding0Important {
+  padding: 0px !important;
+}
+.padding0TopImportant {
+  padding-top: 0px !important;
+}
+.padding0RightImportant {
+  padding-right: 0px !important;
+}
+.padding0BottomImportant {
+  padding-bottom: 0px !important;
+}
+.padding0LeftImportant {
+  padding-left: 0px !important;
+}
+.padding5Important {
+  padding: 5px !important;
+}
+.padding5TopImportant {
+  padding-top: 5px !important;
+}
+.padding5RightImportant {
+  padding-right: 5px !important;
+}
+.padding5BottomImportant {
+  padding-bottom: 5px !important;
+}
+.padding5LeftImportant {
+  padding-left: 5px !important;
+}
+.padding10Important {
+  padding: 10px !important;
+}
+.padding10TopImportant {
+  padding-top: 10px !important;
+}
+.padding10RightImportant {
+  padding-right: 10px !important;
+}
+.padding10BottomImportant {
+  padding-bottom: 10px !important;
+}
+.padding10LeftImportant {
+  padding-left: 10px !important;
+}
+.padding15Important {
+  padding: 15px !important;
+}
+.padding15TopImportant {
+  padding-top: 15px !important;
+}
+.padding15RightImportant {
+  padding-right: 15px !important;
+}
+.padding15BottomImportant {
+  padding-bottom: 15px !important;
+}
+.padding15LeftImportant {
+  padding-left: 15px !important;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.borderBox {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.width5 {
+  width: 5% !important;
+}
+.width10 {
+  width: 10% !important;
+}
+.width15 {
+  width: 15% !important;
+}
+.width20 {
+  width: 20% !important;
+}
+.width25 {
+  width: 25% !important;
+}
+.width30 {
+  width: 30% !important;
+}
+.width35 {
+  width: 35% !important;
+}
+.width40 {
+  width: 40% !important;
+}
+.width45 {
+  width: 45% !important;
+}
+.width50 {
+  width: 50% !important;
+}
+.width55 {
+  width: 55% !important;
+}
+.width60 {
+  width: 60% !important;
+}
+.width65 {
+  width: 65% !important;
+}
+.width70 {
+  width: 70% !important;
+}
+.width75 {
+  width: 75% !important;
+}
+.width80 {
+  width: 80% !important;
+}
+.width85 {
+  width: 85% !important;
+}
+.width90 {
+  width: 90% !important;
+}
+.width95 {
+  width: 95% !important;
+}
+.width100 {
+  width: 100% !important;
+}
+.pointer {
+  cursor: pointer;
+}
+.loading {
+  cursor: progress;
+}
+.rotate90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.rotate270 {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.round {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+.largeType {
+  font-size: large;
+}
+.largerType {
+  font-size: larger;
+}
+.mediumType {
+  font-size: medium;
+}
+.smallType {
+  font-size: small;
+}
+.smallerType {
+  font-size: smaller;
+}
+.red {
+  color: red;
+}
+.yellow {
+  color: yellow;
+}
+.green {
+  color: green;
+}
+.ui-radio .clickable {
+  border-radius: 50%;
+}
+.ui-checkbox,
+.ui-radio {
+  user-select: none;
+}
+.ui-checkbox .clickable,
+.ui-radio .clickable {
+  margin-bottom: 15px;
+  display: inline-block;
+  color: #000;
+  width: 21px;
+  height: 30px;
+  border: 1px solid #444;
+  background: none;
+  padding: 0 5px 0 3px;
+}
+.ui-checkbox .clickable i,
+.ui-radio .clickable i {
+  font-size: 24px;
+  line-height: 30px;
+}
+.ui-checkbox .clickable i.fa-square,
+.ui-radio .clickable i.fa-square {
+  margin-left: 1px;
+}
+.ui-checkbox.small .clickable,
+.ui-radio.small .clickable {
+  width: 16px;
+  height: 20px;
+  padding: 0 2px 0 3px;
+}
+.ui-checkbox.small .clickable i,
+.ui-radio.small .clickable i {
+  font-size: 16px;
+  line-height: 20px;
+}
+.ui-checkbox[disabled] .clickable,
+.ui-radio[disabled] .clickable {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+.ui-checkbox .text,
+.ui-radio .text {
+  margin-left: 3px;
+}
+.modalShadow {
+  position: fixed;
+  /* Stay in place */
+  z-index: 5;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: #000000;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+.modal {
+  position: absolute;
+  /* Stay in place */
+  padding-top: 75px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+}
+.modal .modalWrapper {
+  border: 1px solid #e4e4e4;
+  width: 500px;
+}
+.modal .modalWrapper.wide {
+  width: 800px;
+}
+.modal .modalWrapper .modalHeaderWrapper {
+  padding: 15px 20px 10px 20px;
+  margin: auto;
+  border-bottom: 1px solid #9c9c9c;
+  background: #fff;
+  color: #000;
+}
+.modal .modalWrapper .modalHeaderWrapper .modalHeader {
+  margin-bottom: 5px;
+}
+.modal .modalWrapper .modalHeaderWrapper .title {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+.modal .modalWrapper .modalHeaderWrapper .close {
+  color: #909090;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.modal .modalWrapper .modalHeaderWrapper .close:hover,
+.modal .modalWrapper .modalHeaderWrapper .closefocus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal .modalWrapper .modalContentWrapper {
+  padding: 15px 20px 0 20px;
+  margin: auto;
+  background-image: -webkit-linear-gradient(top, #c5c5c5 4px, #e2e2e2 9px, #fbfbfb 22px, #ffffff 100%);
+  overflow: auto;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent {
+  min-height: 20px;
+  max-height: 450px;
+  line-height: 18px;
+  height: auto;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .listing li {
+  padding: 10px;
+  list-style: none;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .listing li:last-child {
+  border-bottom: 1px solid #000;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .listing li:nth-child(even) {
+  background: #e8e8e8;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .column {
+  float: left;
+  width: 50%;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .column input {
+  width: 205px;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=number],
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=password],
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=text],
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=email],
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=search],
+.modal .modalWrapper .modalContentWrapper .modalContent textarea,
+.modal .modalWrapper .modalContentWrapper .modalContent input[type=datetime-local],
+.modal .modalWrapper .modalContentWrapper .modalContent select {
+  width: 440px;
+}
+.modal .modalWrapper .modalContentWrapper .modalContent .ui-copyinput input {
+  width: 384px;
+}
+.modal .modalWrapper .modalFooterWrapper {
+  background: #fff;
+  padding: 15px 20px 20px 20px;
+  margin: auto;
+}
+.modal .modalWrapper .modalFooterWrapper .modalFooter {
+  text-align: right;
+}
+.modal .modalWrapper .modalFooterWrapper .modalFooter input {
+  margin: 0 0 0 15px;
+}
+/* view styles */
+body#usersKiosk .result {
+  font-size: 19px;
+  margin-top: 15px;
+}
+body#usersKiosk .kioskLogo {
+  display: flex;
+  flex-wrap: wrap;
+  width: 31em;
+  margin: 0 auto 0;
+  align-items: center;
+  justify-content: center;
+}
+body#usersKiosk .kioskLogo img {
+  align-items: center;
+}
+body#usersKiosk .kioskLogo p {
+  align-items: center;
+  justify-content: left;
+  font-size: 47px;
+  font-family: 'Tomorrow', sans-serif;
+}
+body#usersKiosk #kioskFormArea {
+  width: 30em;
+  margin: 0 auto 0;
+}
+body#usersKiosk #kioskFormArea .sidInput {
+  width: 20em;
+  margin: 0 auto 0;
+}
+body#usersKiosk #kioskFormArea .sidInput .flex.sid {
+  margin-bottom: 0;
+  width: 100%;
+}
+body#usersKiosk .courses .course {
+  margin: 5px;
+  padding: 5px;
+}
+body#usersKiosk .courses .course input[type=radio] {
+  height: 15px;
+  vertical-align: bottom;
+  width: 15px;
+  margin-right: 5px;
+}
+body#usersLogin form,
+body#usersChangePassword form {
+  width: 19em;
+  margin: 15px auto 0;
+}
+body#usersLogin form label,
+body#usersChangePassword form label {
+  text-align: left;
+}
+body#usersLogin form input:not([type=submit]),
+body#usersChangePassword form input:not([type=submit]) {
+  width: 100%;
+}
+body#usersLogin form div + div,
+body#usersChangePassword form div + div {
+  margin: 5px 0 10px 0;
+}
+body#usersAdmin,
+body#createData,
+body#reportsReport {
+  /********************************************
+   *Table Stuff for admin                     *
+   ********************************************/
+}
+body#usersAdmin .filters input,
+body#createData .filters input,
+body#reportsReport .filters input {
+  width: 8%;
+  min-width: 8%;
+  max-width: 15%;
+}
+body#usersAdmin .filters select,
+body#createData .filters select,
+body#reportsReport .filters select {
+  width: 10%;
+  background-color: transparent;
+  border: 1px solid #000;
+  font-family: inherit;
+  font-size: inherit;
+  min-width: 10%;
+  max-width: 15%;
+  padding: 0.57em 0.5em;
+  cursor: pointer;
+}
+body#usersAdmin select,
+body#createData select,
+body#reportsReport select {
+  width: 10%;
+  background-color: transparent;
+  border: 1px solid #000;
+  font-family: inherit;
+  font-size: inherit;
+  min-width: 10%;
+  max-width: 15%;
+  padding: 0.57em 0.5em;
+  cursor: pointer;
+}
+body#usersAdmin .adminphase2 input[type="text"].small,
+body#createData .adminphase2 input[type="text"].small,
+body#reportsReport .adminphase2 input[type="text"].small {
+  width: 150px;
+}
+body#usersAdmin .adminphase2 input[type="datetime-local"],
+body#createData .adminphase2 input[type="datetime-local"],
+body#reportsReport .adminphase2 input[type="datetime-local"] {
+  width: 300px;
+}
+body#usersAdmin .adminphase2 table,
+body#createData .adminphase2 table,
+body#reportsReport .adminphase2 table {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+}
+body#usersAdmin .adminphase2 table th,
+body#createData .adminphase2 table th,
+body#reportsReport .adminphase2 table th,
+body#usersAdmin .adminphase2 table td,
+body#createData .adminphase2 table td,
+body#reportsReport .adminphase2 table td,
+body#usersAdmin .adminphase2 table tr,
+body#createData .adminphase2 table tr,
+body#reportsReport .adminphase2 table tr {
+  border: 1px solid black;
+}
+body#usersAdmin .adminphase2 table input[type=submit],
+body#createData .adminphase2 table input[type=submit],
+body#reportsReport .adminphase2 table input[type=submit],
+body#usersAdmin .adminphase2 table input[type=button],
+body#createData .adminphase2 table input[type=button],
+body#reportsReport .adminphase2 table input[type=button] {
+  margin: 5px;
+}
+body#usersAdmin .adminphase2 table thead,
+body#createData .adminphase2 table thead,
+body#reportsReport .adminphase2 table thead {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+body#usersAdmin .adminphase2 table thead th,
+body#createData .adminphase2 table thead th,
+body#reportsReport .adminphase2 table thead th,
+body#usersAdmin .adminphase2 table thead td,
+body#createData .adminphase2 table thead td,
+body#reportsReport .adminphase2 table thead td {
+  padding: 10px 18px;
+  font-weight: bold;
+  text-align: center;
+}
+body#usersAdmin .adminphase2 table thead th .sort,
+body#createData .adminphase2 table thead th .sort,
+body#reportsReport .adminphase2 table thead th .sort,
+body#usersAdmin .adminphase2 table thead td .sort,
+body#createData .adminphase2 table thead td .sort,
+body#reportsReport .adminphase2 table thead td .sort {
+  /* Transparent background */
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  /* Spacing */
+  padding: 4px;
+  background: transparent;
+  /* Size */
+  height: 12px;
+  width: 12px;
+}
+body#usersAdmin .adminphase2 table thead tr,
+body#createData .adminphase2 table thead tr,
+body#reportsReport .adminphase2 table thead tr {
+  background-color: #404040;
+  color: #ffffff;
+}
+body#usersAdmin .adminphase2 table tbody,
+body#createData .adminphase2 table tbody,
+body#reportsReport .adminphase2 table tbody {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+body#usersAdmin .adminphase2 table tbody tr td,
+body#createData .adminphase2 table tbody tr td,
+body#reportsReport .adminphase2 table tbody tr td {
+  border-top: 1px solid #555;
+}
+body#usersAdmin .adminphase2 table tbody td,
+body#createData .adminphase2 table tbody td,
+body#reportsReport .adminphase2 table tbody td,
+body#usersAdmin .adminphase2 table tbody th,
+body#createData .adminphase2 table tbody th,
+body#reportsReport .adminphase2 table tbody th {
+  padding: 8px 10px;
+  text-align: left;
+}
+body#usersAdmin .adminphase2 table tbody tr:first-child,
+body#createData .adminphase2 table tbody tr:first-child,
+body#reportsReport .adminphase2 table tbody tr:first-child {
+  border-top: none;
+}
+body#usersAdmin .adminphase2 table tbody tr:nth-child(even),
+body#createData .adminphase2 table tbody tr:nth-child(even),
+body#reportsReport .adminphase2 table tbody tr:nth-child(even) {
+  background: #cacaca;
+}
+body#usersAdmin .adminphase2 table tfoot tr,
+body#createData .adminphase2 table tfoot tr,
+body#reportsReport .adminphase2 table tfoot tr,
+body#usersAdmin .adminphase2 table tfoot td,
+body#createData .adminphase2 table tfoot td,
+body#reportsReport .adminphase2 table tfoot td,
+body#usersAdmin .adminphase2 table tfoot th,
+body#createData .adminphase2 table tfoot th,
+body#reportsReport .adminphase2 table tfoot th {
+  border: none;
+}
+body#usersAdmin .adminphase2 .wide,
+body#createData .adminphase2 .wide,
+body#reportsReport .adminphase2 .wide {
+  height: 50px;
+  width: 230px;
+}
+body#usersAdmin .adminphase2 .wide input,
+body#createData .adminphase2 .wide input,
+body#reportsReport .adminphase2 .wide input {
+  width: 230px;
+}
+body#usersAdmin .adminphase2 .vcenter,
+body#createData .adminphase2 .vcenter,
+body#reportsReport .adminphase2 .vcenter {
+  vertical-align: middle;
+}
+body#usersAdmin .adminphase2 .center,
+body#createData .adminphase2 .center,
+body#reportsReport .adminphase2 .center {
+  border: 1px solid black;
+  border-top: 1px solid #555;
+  align-self: center;
+  text-align: center;
+  vertical-align: middle;
+}
+body {
+  font-size: 18px;
+}
+body header {
+  background: #fd3d3d;
+  background: linear-gradient(#ea5454, #c33232);
+  padding: 0.5em;
+  margin-bottom: 2em;
+  color: white;
+  font-size: 20px;
+}
+body header a {
+  color: white;
+  text-decoration: none;
+}
+body header a:hover {
+  color: #d0d0d0;
+}
+body header .title {
+  float: left;
+}
+body header .user {
+  float: right;
+}
+body section#main {
+  min-height: 20em;
+}
+body section#main .splashLogo i {
+  font-size: 100px;
+}
+body section#main .splashLogo span {
+  display: block;
+  font-family: 'Tomorrow', sans-serif;
+  font-size: 20px;
+}
+body footer {
+  max-width: 1366px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 50px;
+  text-align: center;
+}
+body footer ul {
+  margin: 15px 0 5px 0;
+  padding: 0;
+  list-style: none;
+}
+body footer ul li {
+  margin: 0;
+  padding: 0 5px;
+  border-left: 1px solid #6b6b6b;
+  display: inline-block;
+  color: #6b6b6b;
+  font-size: 11px;
+}
+body footer ul li:first-child {
+  border: 0;
+}
+body footer .bestUsed {
+  font-size: 14px;
+  margin: 10px 0 0 0;
+  color: #4a4a4a;
+}
+body footer .bestUsed .fa-copyright {
+  vertical-align: super;
+  font-size: 9px;
+}
+body footer .bestUsed a {
+  color: #4a4a4a;
+}
+body footer .bestUsed a:hover {
+  color: #0e0e0e;
+}
+/* global styles */
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: underline;
+  color: #2a2a2a;
+}
+.modal ul#adminEditRoles {
+  display: flex;
+  justify-content: center;
+}
+.modal ul#adminEditRoles li {
+  margin: 5px 5px 5px 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #c0c0c0;
+  padding: 5px 5px 5px 0;
+}
+.modal ul#adminEditRoles li div {
+  text-align: center;
+}
+.modal ul#adminEditRoles li div:last-child {
+  border-top: 1px solid #c0c0c0;
+}
+.modal ul#adminEditRoles li:last-child {
+  border: none;
+}
+form .errors {
+  color: red;
+}
+form label {
+  font-family: 'Source Sans Pro', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+}
+form .passwordPopover {
+  text-align: left;
+  position: absolute;
+  bottom: 100%;
+  background: #ffffff;
+  transform: translate3d(50%, 0px, 0px);
+}
+form .passwordPopover div {
+  position: relative;
+  padding: 10px;
+  box-shadow: #000 0 5px 20px;
+  font-size: 14px;
+  margin: 0 auto;
+  border: 1px solid #333;
+  border-radius: 3px;
+  outline: 0;
+  transition: margin 300ms ease 0s;
+}
+form .passwordPopover:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-top: solid 10px #191919;
+  border-left: solid 10px transparent;
+  border-right: solid 10px transparent;
+}
+input[type=text],
+input[type=search],
+input[type=password],
+input[type=email],
+input[type=number],
+input[type=date],
+input[type=datetime-local],
+textarea,
+input[type=file] {
+  border-radius: 2px;
+  padding: 0 12px;
+  min-height: 44px;
+  line-height: 42px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: 'Source Sans Pro', sans-serif;
+  width: 282px;
+  border: 1px solid #7c797a;
+}
+input[type=text].error,
+input[type=search].error,
+input[type=password].error,
+input[type=email].error,
+input[type=number].error,
+input[type=date].error,
+input[type=datetime-local].error,
+textarea.error,
+input[type=file].error {
+  box-shadow: #ba3038 0px -4px inset;
+}
+input[type=text]:focus,
+input[type=search]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+input[type=date]:focus,
+input[type=datetime-local]:focus,
+textarea:focus,
+input[type=file]:focus {
+  box-shadow: #2f6b9a 0px -4px inset;
+}
+button,
+input[type=submit],
+input[type=button] {
+  cursor: pointer;
+  margin: 16px 0 5px 0;
+  background-color: #ef4949;
+  background: linear-gradient(#ea5454, #c33232);
+  border: 1px solid #d45858;
+  color: white;
+  min-height: 34px;
+  line-height: normal;
+  border-radius: 3px;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+button.minor,
+input[type=submit].minor,
+input[type=button].minor {
+  background-color: #353535;
+  background: linear-gradient(#404040, #292929);
+  border: 1px solid #2f2f2f;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+}
+.row.wrap {
+  flex-wrap: wrap;
+}
+.row .column {
+  flex: 50%;
+  padding: 10px 0;
+}
+/** progress bar **/
+.progress-line,
+.progress-line:before {
+  height: 5px;
+  width: 100%;
+  margin: 0;
+}
+.progress-line {
+  background-color: #ffc9c9;
+  display: -webkit-flex;
+  display: flex;
+}
+.progress-line:before {
+  background-color: #fd3d3d;
+  content: '';
+  -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@-webkit-keyframes running-progress {
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 0%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
+}
+@keyframes running-progress {
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 0%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
+}
+/********************************************
+ *Table Stuff                               *
+ ********************************************/
+/*# sourceMappingURL=ui.css.map */
