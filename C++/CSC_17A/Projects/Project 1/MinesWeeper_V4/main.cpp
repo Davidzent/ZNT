@@ -173,7 +173,9 @@ Map *filstrc(char **a,const int row, const int col,int mines){
         }
     }
     //move mines to random places map
+    prntmap(a,row,col);
     shuffle(strct,shfl);
+    prntmap(a,row,col);
     //number of mines around a non-mine
     around(strct);
     return strct;

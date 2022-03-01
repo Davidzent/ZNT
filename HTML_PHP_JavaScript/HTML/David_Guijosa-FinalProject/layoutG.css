@@ -1,0 +1,75 @@
+body {
+    font-size: 18px;
+    background: url(b1.jpg) no-repeat; 
+    height: 10%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #4F221D; 
+	margin: 0 5%; 
+	font-family: Verdana, Arial, sans-serif;
+}
+body header {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 10%; 
+    background: url(b2.jpg) no-repeat;
+    padding: 0.5em;
+    /* margin-bottom: 2em; */
+    color: white;
+    font-size: 50px;
+}
+body header a {
+    color: white;
+    text-decoration: none;
+}
+body header .title {
+    
+    text-align: center;
+}
+
+h1,h2,h2 a {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif; 
+    color: #23d4cb;
+}
+a,p,li {
+    font-family: 'Times New Roman', Times, serif; 
+    color: white;
+
+}
+dd{
+    color: white;
+}
+dt a,dt{
+    color: rgb(202, 184, 252);
+}
+
+li a{
+    color: rgb(202, 184, 252);
+}
+
+nav {
+	margin-top: 20px;
+}
+
+nav a:link, nav a:visited {
+	color: white;
+	margin-right: 15px;
+}
+nav a:hover, nav a:active {
+	color:white;
+}
+nav a#thispage {
+	font-weight: bold;
+	background: transparent;
+	color: white;
+}
+.picleft{
+    /* align: left; */
+    float: left;
+}
+.picright{
+    float: right;
+}

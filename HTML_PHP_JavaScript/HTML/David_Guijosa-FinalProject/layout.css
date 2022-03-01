@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/*
+ Layout related Styles for Final Project Pages
+ 
+ Do not add your own styles in this file! Put them in your own separate style sheet!
+*/
+
+header {
+	height : 150px; /* optionally set an appropriate height for this banner area */
+}   
+
+
+nav {
+	width : 120px;   /*optionally set an appropriate width for this sidebar area */
+	float : left;    /*must float left or right to allow main content to sit next to it */
+	height: 750px;   /*set a height as needed if main page text is wrapping below sidebar;*/ 
+}
+
+#main {
+	margin-left: 250px; /* Match this to nav's width above to keep content away from nav */	
+}
+
+footer {
+	margin-top: 50px; /* optionally separate copyright from main content by some amount */
+}
+
+
+
+/* Layout Styles for your feedback form and thank you pages:  */
+
+
+fieldset {
+    width: 400px;
+    background-color: floralwhite;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    font-family: Georgia, Times, serif;  
+}
+
+input[type=checkbox] {
+    margin-left: 25px;
+}
+
+
+.floatright{
+    float: right;
+    margin-left: 30px;
+}   
