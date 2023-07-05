@@ -1,6 +1,3 @@
-/* 
-    Author     : Head First Javascript Example Project
- */
 
 
 /* global model, view */

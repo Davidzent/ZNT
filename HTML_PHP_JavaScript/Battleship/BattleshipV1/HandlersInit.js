@@ -1,8 +1,4 @@
-/* 
-    Author     : Head First Javascript Example Project
- */
 
-/* global controller, model */
 
 // event handlers
 

@@ -1,8 +1,3 @@
-/* 
-    Author     : Head First Javascript Example Project
- */
-
-
 var view = {
     displayMessage: function(msg) {
         var messageArea = document.getElementById("messageArea");
