@@ -32,7 +32,11 @@ class Tree{
         void In_ord(Tree<T> *);        //In order display
         void Pre_ord(Tree<T> *);       //Pre order display
         void Pos_ord(Tree<T> *);       //Post order display
-        Tree(){Sroot = NULL; Broot=NULL;}  //Constructor   
+        Tree(){
+            data=-1; 
+            Sroot=NULL; 
+            Broot=NULL;
+        }  //Constructor   
         Tree(Tree<T> *root){Sroot=root->Sroot;Broot=root->Broot;data=root->data;}
         ~Tree(){delete Sroot;delete Broot;}
 };

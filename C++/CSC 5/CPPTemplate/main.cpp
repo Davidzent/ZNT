@@ -19,7 +19,7 @@ using namespace std;
 
 //Program Execution Begins Here
 int main(int argc, char** argv) {
- 
+    cout<<"Hello World\n";
     //Declare all Variables Here
 
     //Input or initialize values Here

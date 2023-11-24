@@ -21,44 +21,45 @@ void menu();
 int main(){
     int choice;
     int item;
-    Tree<int>*tree;
-    /*do{
-        menu();
-        cin>>choice;
-        switch(choice){
-            case 1:
-                cout<<"Enter value to be inserted: ";cin>>item;
-                tree=tree->insert(tree,item);break;
-            case 2:
-                if (tree == NULL){cout<<"Tree is Empty"<<endl;continue;}
-                cout<<"Balanced Tree:"<<endl;tree->display(tree,1);break;
-            case 3:
-                cout<<"In-order Traversal:"<<endl;tree->In_ord(tree);
-                cout<<endl;break;
-            case 4:
-                cout<<"Pre-order Traversal:"<<endl;tree->Pre_ord(tree);
-                cout<<endl;break;
-            case 5:
-                cout<<"Post-order Traversal:"<<endl;tree->Pos_ord(tree);    
-                cout<<endl;break;
-            default:
-                cout<<"Exit Program"<<endl;
-        }
-    }while(choice>0&&choice<=5);*/
-    for(int i=0;i<101;i++){
+    Tree<int>*tree = new Tree<int>();
+    // do{
+    //     menu();
+    //     cin>>choice;
+    //     switch(choice){
+    //         case 1:
+    //             cout<<"Enter value to be inserted: ";cin>>item;
+    //             tree=tree->insert(tree,item);break;
+    //         case 2:
+    //             if (tree == NULL){cout<<"Tree is Empty"<<endl;continue;}
+    //             cout<<"Balanced Tree:"<<endl;tree->display(tree,1);break;
+    //         case 3:
+    //             cout<<"In-order Traversal:"<<endl;tree->In_ord(tree);
+    //             cout<<endl;break;
+    //         case 4:
+    //             cout<<"Pre-order Traversal:"<<endl;tree->Pre_ord(tree);
+    //             cout<<endl;break;
+    //         case 5:
+    //             cout<<"Post-order Traversal:"<<endl;tree->Pos_ord(tree);    
+    //             cout<<endl;break;
+    //         default:
+    //             cout<<"Exit Program"<<endl;
+    //     }
+    // }while(choice>0&&choice<=5);
+    for(int i=0;i<10;i++){
         tree=tree->insert(tree,i);
     }
     if (tree == NULL){cout<<"Tree is Empty"<<endl;}
     cout<<"\nBalanced Tree:"<<endl;
     tree->In_ord(tree);
-    for(int i=0;i<101;i++){
-        tree=tree->insert(tree,i);
-    }
+    // for(int i=0;i<101;i++){
+    //     tree=tree->insert(tree,i);
+    // }
     if (tree == NULL){cout<<"Tree is Empty"<<endl;}
     cout<<"\nBalanced Tree:"<<endl;
     tree->In_ord(tree);
-    tree->display(tree);
+    tree->display(tree,0);
     //Exit stage right!
+    delete tree;
     return 0;
 }
 
