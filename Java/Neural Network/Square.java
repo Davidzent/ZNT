@@ -7,6 +7,14 @@ public class Square{
     
     }
     
+    
+    public Square(int length, int width) {
+      this.length = length;
+      this.width = width;
+      pixels = new Pixel[length][width];
+    }
+
+
     void show(){
       for(int i=0;i<length;i++){
         for(int j=0;j<width;j++){

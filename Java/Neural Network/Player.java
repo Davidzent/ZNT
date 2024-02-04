@@ -13,7 +13,7 @@ public class Player{
     int gen = 0;
   
     int genomeInputs = 4;
-    int genomeOutputs = 4;
+    int genomeOutputs = 8;
     
     double[] vision = new double[genomeInputs];//t he input array fed into the neuralNet 
     double[] decision = new double[genomeOutputs]; //the out put of the NN 
@@ -23,10 +23,9 @@ public class Player{
     }
     
     void show(){
-      Square[] s = App.types(guess,3,0,true);
-      for(int i=0;i<2;i++){
-        s[i].show(1);
-      }
+      Square s = App.types(guess,3,0);
+      s.show(1);
+
 
     }
 

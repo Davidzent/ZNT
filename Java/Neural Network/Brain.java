@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Brain {
+    private final String[] NodeNames = {
+        "Pixel (0,0)",
+        "Pixel (0,1)",
+        "Pixel (1,0)",
+        "Pixel (1,1)",
+        "BiasNode"
+    };
     private final double WeightMutationRate = 0.8;
     private final double ConnectionMutationRate = 0.08;
     private final double NodeMutationRate = 0.02;
@@ -37,7 +44,7 @@ public class Brain {
         }
         
         // create outputs
-        for (int i = 0; i < inputs; i++) {
+        for (int i = 0; i < outputs; i++) {
             network.AddOnLayer(new Node(nextNode, 1));
             nextNode++;
         }
@@ -400,88 +407,6 @@ public class Brain {
                 + ", \nnetwork=" + network + "]";
     }
 
-    // ----------------------------------------------------------------------------------------------------------------------------------------
-    // draw the genome on the screen
-    // void drawGenome(int startX, int startY, int w, int h) {
-    //     // i know its ugly but it works (and is not that important) so I'm not going to
-    //     // mess with it
-    //     ArrayList<PVector> nodePoses = new ArrayList<PVector>();
-    //     ArrayList<Integer> nodeNumbers = new ArrayList<Integer>();
-
-    //     // get the positions on the screen that each node is supposed to be in
-
-    //     // split the nodes into layers
-    //     Map<Integer, Integer> layerC = network.NodesInLayers();
-
-    //     // for each layer add the position of the node on the screen to the node posses
-    //     // arraylist
-    //     int cnt = 0;
-    //     for (int i = 0; layerC.containsKey(i); i++) {
-    //         int x = startX + ((i) * w) / (layers - 1);
-    //         for (int j = 0; j < layerC.get(i); j++) {// for the position in the layer
-    //             int y = startY + ((j + 1) * h) / (layerC.get(i) + 1);
-    //             nodePoses.add(new PVector(x, y));
-    //             nodeNumbers.add(network.getByID(cnt++).getID());
-    //             if (i == layers - 1) {
-    //                 // println(i,j,x,y);
-
-    //             }
-    //         }
-    //     }
-
-    //     // // for each layer add the position of the node on the screen to the node posses
-    //     // // arraylist
-    //     // for (int i = 0; i < layers; i++) {
-    //     //     fill(255, 0, 0);
-    //     //     float x = startX + (float) ((i) * w) / (float) (layers - 1);
-    //     //     for (int j = 0; j < allNodes.get(i).size(); j++) {// for the position in the layer
-    //     //         float y = startY + ((float) (j + 1.0) * h) / (float) (allNodes.get(i).size() +
-    //     //                 1.0);
-    //     //         nodePoses.add(new PVector(x, y));
-    //     //         nodeNumbers.add(allNodes.get(i).get(j).ID);
-    //     //         if (i == layers - 1) {
-    //     //             // println(i,j,x,y);
-
-    //     //         }
-    //     //     }
-    //     // }
-
-    //     // draw connections
-    //     stroke(0);
-    //     strokeWeight(2);
-    //     for (int i = 0; i < connections.size(); i++) {
-    //         if (connections.get(i).isEnabled()) {
-    //             stroke(0);
-    //         } else {
-    //             stroke(100);
-    //         }
-    //         PVector from;
-    //         PVector to;
-    //         from = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getStart().getID()));
-    //         to = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getEnd().getID()));
-    //         if (connections.get(i).getWeight() > 0) {
-    //             stroke(255, 0, 0);
-    //         } else {
-    //             stroke(0, 0, 255);
-    //         }
-    //         strokeWeight(map(abs((float) connections.get(i).getWeight()), 0, 1, 0, 5));
-    //         line(from.x, from.y, to.x, to.y);
-    //     }
-
-    //     // draw nodes last so they appear ontop of the connection lines
-    //     for (int i = 0; i < nodePoses.size(); i++) {
-    //         fill(255);
-    //         stroke(0);
-    //         strokeWeight(1);
-    //         ellipse(nodePoses.get(i).x, nodePoses.get(i).y, 20, 20);
-    //         textSize(10);
-    //         fill(0);
-    //         textAlign(CENTER, CENTER);
-
-    //         text(nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
-    //     }
-    // }
-
     public void show(int startX, int startY, int w, int h) {
         ArrayList<PVector> nodePoses = new ArrayList<PVector>();
         ArrayList<Integer> nodeNumbers = new ArrayList<Integer>();
@@ -530,7 +455,7 @@ public class Brain {
                 g2D.setColor(Color.red);
             }
             // strokeWeight(map(Math.abs((float) connections.get(i).weight), 0, 1, 0, 5));
-            g2D.drawLine(from.x, from.y, to.x, to.y);
+            g2D.drawLine(from.x+10, from.y+10, to.x+10, to.y+10);
             // line(from.x, from.y, to.x, to.y);
         }
 
@@ -547,6 +472,10 @@ public class Brain {
             // fill(0);
             // textAlign(CENTER, CENTER);
             g2D.drawString("" + nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
+            if(i<inputs+1){
+                g2D.drawString(NodeNames[i], nodePoses.get(i).x-60, nodePoses.get(i).y+13);
+            }
+
             // text(nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
         }
         System.out.print("");
