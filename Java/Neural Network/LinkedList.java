@@ -25,8 +25,10 @@ public class LinkedList{
     public void AddOnBetweenLayer(Node n){
         LinkedList temp=this;
         boolean after=false;
+        int CLayer=0;
         while(!checkAdd(n,temp)){
-            temp=temp.next;   
+            temp=temp.next;
+            CLayer=temp.data.getLayer();   
         }
         while(temp!=null){
             if(after){
@@ -38,7 +40,7 @@ public class LinkedList{
         size++;
     }
 
-    private static boolean checkAdd(Node node,LinkedList at){
+    private boolean checkAdd(Node node,LinkedList at){
         //insert at current position
         if(at.data==null){      
             at.data = node;
@@ -99,25 +101,30 @@ public class LinkedList{
 
         while(layerS!=null){
             outs[i++]=layerS.data.getOutValue();
+            layerS = layerS.next;
         }
 
         return outs;
     }
 
-    public int MaxConnections(){
-        if(data==null) return 0;
-        
+    public Map <Integer, Integer> NodesInLayers(){
         Map <Integer, Integer> layerC = new HashMap<Integer, Integer>();
         LinkedList temp=this;
         int cnt=0;
-        int maxConnections=0;
-        int frontNodes=0;
 
         while(temp!=null){
             cnt=layerC.getOrDefault(temp.data.getLayer(), 0);
             layerC.put(temp.data.getLayer(), ++cnt);
             temp=temp.next;
         }
+        return layerC;
+    }
+
+    public int MaxConnections(){
+        if(data==null) return 0;        
+        Map <Integer, Integer> layerC = NodesInLayers();
+        int maxConnections=0;
+        int frontNodes=0;
 
         for(int i=0;layerC.containsKey(i);i++){
             frontNodes=0;
@@ -131,6 +138,8 @@ public class LinkedList{
 
     }
 
+    
+
     public void resetInputsSum(){
         if(data==null)return;
         LinkedList temp=this;
@@ -141,12 +150,21 @@ public class LinkedList{
     }
 
     public Node get(int index){
-        int i=0;
         LinkedList temp=this;
-        while(temp!=null&&i++<index){
+        int i=0;
+        while(temp!=null&&i++!=index){
             temp=temp.next;   
         }
-        if(i-1==index)return temp.data;
+        if(temp!=null)return temp.data;
+        return null;
+    }
+
+    public Node getByID(int ID){
+        LinkedList temp=this;
+        while(temp!=null&&temp.data.getID()!=ID){
+            temp=temp.next;   
+        }
+        if(temp!=null)return temp.data;
         return null;
     }
 
@@ -167,13 +185,14 @@ public class LinkedList{
         
         LinkedList temp=this;
         LinkedList temp2=clone;
-        clone.data=temp.data;
+        clone.data=temp.data.clone();
 
         while(temp.next!=null){
-            temp2.next=new LinkedList(temp.next.data);
+            temp2.next=new LinkedList(temp.next.data.clone());
             temp2=temp2.next;    
             temp=temp.next;
         }
+        clone.size=size;
         
         return clone;
 

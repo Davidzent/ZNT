@@ -1,9 +1,15 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Brain {
     private final double WeightMutationRate = 0.8;
-    private final double ConnectionMutationRate = 0.1;
-    private final double NodeMutationRate = 0.2;
+    private final double ConnectionMutationRate = 0.08;
+    private final double NodeMutationRate = 0.02;
+    private static int nextCon = 0;
+    private Node biasNode;
 
     private ArrayList<Connection> connections = new ArrayList<Connection>();
     // private ArrayList<Node> nodes = new ArrayList<Node>();
@@ -18,20 +24,21 @@ public class Brain {
     public Brain(int in, int out) {
         inputs = in;
         outputs = out;
-
-        // create inputs
-        for (int i = 0; i < inputs; i++) {
-            network.AddOnLayer(new Node(i, 0));
-            nextNode++;
-        }
-
-        network.AddOnLayer(new Node(nextNode, 0));
+        // create bias node
+        biasNode = new Node(nextNode, 0);
+        network.AddOnLayer(biasNode);
         biasNodePos = nextNode;
         nextNode++;
 
+        // create inputs
+        for (int i = 0; i < inputs; i++) {
+            network.AddOnLayer(new Node(nextNode, 0));
+            nextNode++;
+        }
+        
         // create outputs
         for (int i = 0; i < inputs; i++) {
-            network.AddOnLayer(new Node(i + inputs, 1));
+            network.AddOnLayer(new Node(nextNode, 1));
             nextNode++;
         }
     }
@@ -41,13 +48,14 @@ public class Brain {
         outputs = out;
     }
 
+    // Sorts the network it is already done in the linked list
     // public void generateNetwork() {
-    //     connectNodes();
-    //     network = new LinkedList();
-    //     for (int i = 0; i < nodes.size(); i++) {
-    //         network.AddOnLayer(nodes.get(i));
-    //     }
-    //     System.out.println(network);
+    // connectNodes();
+    // network = new LinkedList();
+    // for (int i = 0; i < network.size(); i++) {
+    // network.AddOnLayer(network.getByID(i));
+    // }
+    // System.out.println(network);
     // }
 
     public void connectNodes() {
@@ -60,6 +68,7 @@ public class Brain {
 
     public double[] feedForward(double[] inputValues) {
         // set the outputs of the input nodes
+        // System.out.println(network);
         network.setInputsResponse(inputValues);
 
         network.engageAll();// for each node in the network engage it
@@ -74,7 +83,7 @@ public class Brain {
 
     public int getInnovationNumber(ArrayList<ConnectionHistory> innovationHistory, Node from, Node to) {
         boolean isNew = true;
-        int connectionInnovationNumber = nextNode;
+        int connectionInnovationNumber = nextCon;
         for (int i = 0; i < innovationHistory.size(); i++) {// for each previous mutation
             if (innovationHistory.get(i).matches(this, from, to)) {// if match found
                 isNew = false;// its not a new mutation
@@ -95,7 +104,7 @@ public class Brain {
             // then add this mutation to the innovationHistory
             innovationHistory
                     .add(new ConnectionHistory(from.getID(), to.getID(), connectionInnovationNumber, innoNumbers));
-            nextNode++;
+            nextCon++;
         }
         return connectionInnovationNumber;
     }
@@ -110,17 +119,16 @@ public class Brain {
         // get random nodes
         int random1 = (int) (Math.random() * network.size());
         int random2 = (int) (Math.random() * network.size());
-        Node randomNode1 = network.get(random1);
-        Node randomNode2 = network.get(random2);
+        Node randomNode1 = network.getByID(random1);
+        Node randomNode2 = network.getByID(random2);
 
         while (checkNewConnection(randomNode1, randomNode2)) {// while the random nodes are no good
             // get new ones
             random1 = (int) (Math.random() * network.size());
             random2 = (int) (Math.random() * network.size());
-            randomNode1 = network.get(random1);
-            randomNode2 = network.get(random2);
+            randomNode1 = network.getByID(random1);
+            randomNode2 = network.getByID(random2);
         }
-
 
         if (randomNode1.getLayer() > randomNode2.getLayer()) {// swap if the first random node is after the second
             Node temp;
@@ -131,10 +139,10 @@ public class Brain {
 
         // get the innovation number of the connection
         // this will be a new number if no identical genome has mutated in the same way
-        int connectionInnovationNumber = getInnovationNumber(innovationHistory, randomNode1,randomNode2);
+        int connectionInnovationNumber = getInnovationNumber(innovationHistory, randomNode1, randomNode2);
         // add the connection with a random array
 
-        connections.add(new Connection(randomNode1,randomNode2, (Math.random() * 2 - 1),
+        connections.add(new Connection(randomNode1, randomNode2, (Math.random() * 2 - 1),
                 connectionInnovationNumber));// changed this so if error here
         connectNodes();
     }
@@ -147,20 +155,28 @@ public class Brain {
 
         return false;
     }
+    public boolean onlyBiasConnections(){
+        for(int i=0;i<connections.size();i++){
+            if(connections.get(i).getStart()!=biasNode)return false;
+        }
+
+        return true;
+    }
 
     public void addNode(ArrayList<ConnectionHistory> innovationHistory) {
         // pick a random connection to create a node between
-        if (connections.size() == 0) {
+        if (connections.size() == 0||onlyBiasConnections()) {
             addConnection(innovationHistory);
             return;
         }
 
-        Node biasNode = network.get(biasNodePos);
         int randomConnection = (int) (Math.random() * connections.size());
+        int cnt = 0;
 
         while (connections.get(randomConnection).getStart() == biasNode && connections.size() != 1) {// dont
-                                                                                                                // disconnect
-                                                                                                                // bias
+            // disconnect
+            // bias
+
             randomConnection = (int) (Math.random() * connections.size());
         }
 
@@ -170,7 +186,19 @@ public class Brain {
 
         int newNodeNo = nextNode;
         Node newNode = new Node(newNodeNo);
-        network.AddOnBetweenLayer(newNode);
+        int SLayer = temp.getStart().getLayer();
+        int ELayer = temp.getEnd().getLayer();
+        int NLayer = (ELayer - SLayer) / 2;
+        newNode.setLayer(NLayer);
+        if (NLayer == 0) {
+            newNode.setLayer(ELayer);
+            network.AddOnBetweenLayer(newNode);
+            layers++;
+        } else {
+
+            network.AddOnLayer(newNode);
+        }
+
         nextNode++;
 
         // add a new connection from the start of the disabled connection to the new
@@ -182,7 +210,7 @@ public class Brain {
         // add a new connection from the new node to the end of the disconnected
         // connection with a weight the same as the disabled
         connections.add(new Connection(newNode, temp.getEnd(), temp.getWeight(), connectionInno));
-        newNode.setLayer(temp.getStart().getLayer() + 1);
+        // newNode.setLayer(temp.getStart().getLayer() + 1);
 
         connectionInno = getInnovationNumber(innovationHistory, biasNode, newNode);
         // connect the bias to the new node with a weight of 0
@@ -218,7 +246,7 @@ public class Brain {
     public Brain crossover(Brain parent2) {
         Brain child = new Brain(inputs, outputs, true);
         child.connections.clear();
-        child.network=new LinkedList();
+        child.network = new LinkedList();
         child.layers = layers;
         child.nextNode = nextNode;
         child.biasNodePos = biasNodePos;
@@ -263,10 +291,11 @@ public class Brain {
         // so all the nodes can be inherrited from this parent
         child.network = network.clone();
 
+        child.biasNode = child.network.getByID(biasNodePos);
 
         // clone all the connections so that they connect the childs new nodes
         for (int i = 0; i < childConnections.size(); i++) {
-            child.connections.add(childConnections.get(i).clone());
+            child.connections.add(childConnections.get(i).clone(child.network.getByID(childConnections.get(i).getStart().getID()), child.network.getByID(childConnections.get(i).getEnd().getID())));
             child.connections.get(i).setEnabled(isEnabled.get(i));
         }
 
@@ -286,23 +315,25 @@ public class Brain {
     public Brain clone() {
         Brain clone = new Brain(inputs, outputs, true);
 
-        clone.network=network.clone();
+        clone.network = network.clone();
 
         // copy all the connections so that they connect the clone new nodes
 
         for (int i = 0; i < connections.size(); i++) {// copy genes
-            clone.connections.add(connections.get(i).clone());
+            clone.connections.add(connections.get(i).clone(clone.network.getByID(connections.get(i).getStart().getID()), clone.network.getByID(connections.get(i).getEnd().getID())));
         }
 
         clone.layers = layers;
         clone.nextNode = nextNode;
         clone.biasNodePos = biasNodePos;
+        clone.biasNode = clone.network.getByID(biasNodePos);
+
         clone.connectNodes();
 
         return clone;
     }
 
-    //Getters and Seters    
+    // Getters and Seters
     public ArrayList<Connection> getConections() {
         return connections;
     }
@@ -363,10 +394,162 @@ public class Brain {
     public String toString() {
         return "Brain [WeightMutationRate=" + WeightMutationRate + ", ConnectionMutationRate=" + ConnectionMutationRate
                 + ", NodeMutationRate=" + NodeMutationRate + ", \nconnections=" + connections
-                + ", \ninputs=" + inputs + ", \noutputs=" + outputs + ", \nlayers=" + layers 
-                + ", \nnextNode="+ nextNode
-                + ", \nbiasNodePos=" + biasNodePos 
+                + ", \ninputs=" + inputs + ", \noutputs=" + outputs + ", \nlayers=" + layers
+                + ", \nnextNode=" + nextNode
+                + ", \nbiasNodePos=" + biasNodePos
                 + ", \nnetwork=" + network + "]";
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------------------------------
+    // draw the genome on the screen
+    // void drawGenome(int startX, int startY, int w, int h) {
+    //     // i know its ugly but it works (and is not that important) so I'm not going to
+    //     // mess with it
+    //     ArrayList<PVector> nodePoses = new ArrayList<PVector>();
+    //     ArrayList<Integer> nodeNumbers = new ArrayList<Integer>();
+
+    //     // get the positions on the screen that each node is supposed to be in
+
+    //     // split the nodes into layers
+    //     Map<Integer, Integer> layerC = network.NodesInLayers();
+
+    //     // for each layer add the position of the node on the screen to the node posses
+    //     // arraylist
+    //     int cnt = 0;
+    //     for (int i = 0; layerC.containsKey(i); i++) {
+    //         int x = startX + ((i) * w) / (layers - 1);
+    //         for (int j = 0; j < layerC.get(i); j++) {// for the position in the layer
+    //             int y = startY + ((j + 1) * h) / (layerC.get(i) + 1);
+    //             nodePoses.add(new PVector(x, y));
+    //             nodeNumbers.add(network.getByID(cnt++).getID());
+    //             if (i == layers - 1) {
+    //                 // println(i,j,x,y);
+
+    //             }
+    //         }
+    //     }
+
+    //     // // for each layer add the position of the node on the screen to the node posses
+    //     // // arraylist
+    //     // for (int i = 0; i < layers; i++) {
+    //     //     fill(255, 0, 0);
+    //     //     float x = startX + (float) ((i) * w) / (float) (layers - 1);
+    //     //     for (int j = 0; j < allNodes.get(i).size(); j++) {// for the position in the layer
+    //     //         float y = startY + ((float) (j + 1.0) * h) / (float) (allNodes.get(i).size() +
+    //     //                 1.0);
+    //     //         nodePoses.add(new PVector(x, y));
+    //     //         nodeNumbers.add(allNodes.get(i).get(j).ID);
+    //     //         if (i == layers - 1) {
+    //     //             // println(i,j,x,y);
+
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     // draw connections
+    //     stroke(0);
+    //     strokeWeight(2);
+    //     for (int i = 0; i < connections.size(); i++) {
+    //         if (connections.get(i).isEnabled()) {
+    //             stroke(0);
+    //         } else {
+    //             stroke(100);
+    //         }
+    //         PVector from;
+    //         PVector to;
+    //         from = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getStart().getID()));
+    //         to = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getEnd().getID()));
+    //         if (connections.get(i).getWeight() > 0) {
+    //             stroke(255, 0, 0);
+    //         } else {
+    //             stroke(0, 0, 255);
+    //         }
+    //         strokeWeight(map(abs((float) connections.get(i).getWeight()), 0, 1, 0, 5));
+    //         line(from.x, from.y, to.x, to.y);
+    //     }
+
+    //     // draw nodes last so they appear ontop of the connection lines
+    //     for (int i = 0; i < nodePoses.size(); i++) {
+    //         fill(255);
+    //         stroke(0);
+    //         strokeWeight(1);
+    //         ellipse(nodePoses.get(i).x, nodePoses.get(i).y, 20, 20);
+    //         textSize(10);
+    //         fill(0);
+    //         textAlign(CENTER, CENTER);
+
+    //         text(nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
+    //     }
+    // }
+
+    public void show(int startX, int startY, int w, int h) {
+        ArrayList<PVector> nodePoses = new ArrayList<PVector>();
+        ArrayList<Integer> nodeNumbers = new ArrayList<Integer>();
+
+        // get the positions on the screen that each node is supposed to be in
+
+        // split the nodes into layers
+        Map<Integer, Integer> layerC = network.NodesInLayers();
+
+        // for each layer add the position of the node on the screen to the node posses
+        // arraylist
+        int cnt = 0;
+        for (int i = 0; layerC.containsKey(i); i++) {
+            int x = startX + ((i) * w) / (layers - 1);
+            for (int j = 0; j < layerC.get(i); j++) {// for the position in the layer
+                int y = startY + ((j + 1) * h) / (layerC.get(i) + 1);
+                nodePoses.add(new PVector(x, y));
+                nodeNumbers.add(network.get(cnt).getID());
+                cnt++;
+                if (i == layers - 1) {
+                    // println(i,j,x,y);
+
+                }
+            }
+        }
+
+        // draw connections
+        Graphics2D g2D = (Graphics2D) App.frame.getGraphics();
+        g2D.clearRect(600, 0, 1040, 750);
+        g2D.drawLine(startX, startY, w, h);
+        g2D.setStroke(new BasicStroke(0f));
+        g2D.setColor(Color.black);
+        // stroke(0);
+        // strokeWeight(2);
+        for (int i = 0; i < connections.size(); i++) {
+            if (!connections.get(i).isEnabled())
+                continue;
+            PVector from;
+            PVector to;
+            from = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getStart().getID()));
+            to = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getEnd().getID()));
+            g2D.setStroke(new BasicStroke((float) Math.abs(connections.get(i).getWeight())));
+            if (connections.get(i).getWeight() > 0) {
+                g2D.setColor(Color.blue);
+            } else {
+                g2D.setColor(Color.red);
+            }
+            // strokeWeight(map(Math.abs((float) connections.get(i).weight), 0, 1, 0, 5));
+            g2D.drawLine(from.x, from.y, to.x, to.y);
+            // line(from.x, from.y, to.x, to.y);
+        }
+
+        // draw nodes last so they appear ontop of the connection lines
+        g2D.setColor(Color.BLACK);
+        cnt = 0;
+        // g2D.setFont(10);
+        for (int i = 0; i < nodePoses.size(); i++) {
+            // fill(255);
+            // stroke(0);
+            // strokeWeight(1);
+            g2D.drawOval(nodePoses.get(i).x, nodePoses.get(i).y, 20, 20);
+            // textSize(10);
+            // fill(0);
+            // textAlign(CENTER, CENTER);
+            g2D.drawString("" + nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
+            // text(nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
+        }
+        System.out.print("");
     }
 
 }

@@ -31,7 +31,7 @@ public class Connection {
         }
     }
 
-    public Connection clone() {
+    public Connection clone(Node start, Node end) {
         return new Connection(start, end, weight, ID);
     }
 
