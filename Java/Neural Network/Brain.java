@@ -5,16 +5,26 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Brain {
-    private final String[] NodeNames = {
+    private final String[] InputNodeNames = {
         "Pixel (0,0)",
         "Pixel (0,1)",
         "Pixel (1,0)",
         "Pixel (1,1)",
         "BiasNode"
     };
+    private final String[] OutputNodeNames = {
+        "Solid White",
+        "Solid Black",
+        "Vertical First",
+        "Vertical Second",
+        "Diagonal top to bottom",
+        "Diagonal bottom to top",
+        "Horizontal top",
+        "Horizontal bottom"
+    };
     private final double WeightMutationRate = 0.8;
-    private final double ConnectionMutationRate = 0.08;
-    private final double NodeMutationRate = 0.02;
+    private final double ConnectionMutationRate = 0.05;
+    private final double NodeMutationRate = 0.01;
     private static int nextCon = 0;
     private Node biasNode;
 
@@ -448,7 +458,7 @@ public class Brain {
             PVector to;
             from = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getStart().getID()));
             to = nodePoses.get(nodeNumbers.indexOf(connections.get(i).getEnd().getID()));
-            g2D.setStroke(new BasicStroke((float) Math.abs(connections.get(i).getWeight())));
+            g2D.setStroke(new BasicStroke((float) Math.abs(connections.get(i).getWeight()*5.0f)));
             if (connections.get(i).getWeight() > 0) {
                 g2D.setColor(Color.blue);
             } else {
@@ -462,6 +472,7 @@ public class Brain {
         // draw nodes last so they appear ontop of the connection lines
         g2D.setColor(Color.BLACK);
         cnt = 0;
+        g2D.setStroke(new BasicStroke(1));
         // g2D.setFont(10);
         for (int i = 0; i < nodePoses.size(); i++) {
             // fill(255);
@@ -473,11 +484,14 @@ public class Brain {
             // textAlign(CENTER, CENTER);
             g2D.drawString("" + nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
             if(i<inputs+1){
-                g2D.drawString(NodeNames[i], nodePoses.get(i).x-60, nodePoses.get(i).y+13);
+                g2D.drawString(InputNodeNames[i], nodePoses.get(i).x-60, nodePoses.get(i).y+13);                
             }
-
+            else if(i>=nodePoses.size()-OutputNodeNames.length){
+                g2D.drawString(OutputNodeNames[cnt++], nodePoses.get(i).x+60, nodePoses.get(i).y+13);
+            }
             // text(nodeNumbers.get(i), nodePoses.get(i).x, nodePoses.get(i).y);
         }
+        cnt=0;
         System.out.print("");
     }
 

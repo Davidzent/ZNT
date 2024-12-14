@@ -2,6 +2,7 @@ public class Player{
     double fitness;
     Brain brain;
     boolean replay = false;
+    int combo = 0;
     
     double unadjustedFitness;
     int lifespan = 0;//how long the player lived for fitness
@@ -9,6 +10,7 @@ public class Player{
     boolean dead=false;
     int guess=0;
     int score=0;
+    
     int correct=0;
     int gen = 0;
   
@@ -17,6 +19,7 @@ public class Player{
     
     double[] vision = new double[genomeInputs];//t he input array fed into the neuralNet 
     double[] decision = new double[genomeOutputs]; //the out put of the NN 
+    double[] decisionHistory = new double[genomeOutputs];
     
     Player(){
       brain = new Brain(genomeInputs, genomeOutputs);
@@ -38,10 +41,16 @@ public class Player{
     
     boolean update(int ans,double pass,int attempt){
       if(ans==guess){
-        score++;
-        // if(correct%3==0)score++;
+        combo++;
+        score+=combo*1;
+        correct++;
+      }else{
+        if(attempt>=50&&score<attempt*pass||(attempt>500&&correct<attempt*pass)) dead=true;
+        if(decisionHistory[ans] >= 10)score-=(int)decisionHistory[ans]/10;
+        decisionHistory[ans]++;
+        combo=0;
       }
-      else if(attempt>=50&&score<attempt*pass) dead=true;
+      
       return dead;
     }
     

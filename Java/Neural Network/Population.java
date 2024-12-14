@@ -7,8 +7,9 @@ public class Population {
     int bestScore =0;//the score of the best ever player
     int currentBestScore = 0;
     int currentBestScorePos=0;
+    int currentBestCorrect=0;
     int gen;
-    double passingGrade = 0.5;
+    double passingGrade = 0.4;
     ArrayList<ConnectionHistory> innovationHistory = new ArrayList<ConnectionHistory>();
     ArrayList<Player> genPlayers = new ArrayList<Player>();
     ArrayList<Species> species = new ArrayList<Species>();
@@ -44,11 +45,16 @@ public class Population {
           pop.get(i).think();//use outputs from neural network
           died=pop.get(i).update(squareType,passingGrade,populationLife);//move the player according to the outputs from the neural network
           if(died)cntAlive--;
-          if(pop.get(i).score>currentBestScore){
+          if(pop.get(i).score>currentBestScore||currentBestScorePos==i){
             currentBestScore=pop.get(i).score;
             currentBestScorePos=i;
+            
           }
-          if (!showNothing&&first&&(i==currentBestScore||pop.get(i).score==currentBestScore)) {
+          if(pop.get(i).correct>currentBestCorrect){
+            currentBestCorrect=pop.get(i).correct;
+          }
+          
+          if (!showNothing&&first&&(i==currentBestScore||pop.get(i).score>=currentBestScore)) {
             first=false;
             pop.get(i).show();
             App.drawBrain(pop.get(i));
@@ -68,7 +74,7 @@ public class Population {
           return false;
         }
       }
-      passingGrade=0.5;
+      passingGrade=0.4;
       cntAlive=pop.size();
       return true;
     }
@@ -144,6 +150,7 @@ public class Population {
       
       populationLife = 0;
       currentBestScore=0;
+      currentBestCorrect=0;
 
     }
   
