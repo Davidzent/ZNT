@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" charset="UTF-8">
+    <title>Love Tree</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://i.imgur.com/O9KLjdx.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            /* make sure body fills the viewport */
+            overflow: hidden;
+            /* optional, keeps heart/drops inside */
+        }
+
+        /* MAIN CONTAINER */
+        .ground-container {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column-reverse;
+            background: transparent;
+        }
+
+        /* Thin rounded ground line */
+        .ground-line {
+            position: absolute;
+            top: 85%;
+            /* 3/4 de la pantalla */
+            width: 100%;
+            height: 2px;
+            /* un poquito más visible */
+            background: red;
+            border-radius: 50px;
+        }
+
+        /* TEXT = first 3/8 */
+        .text-section {
+            width: 90%;
+            text-align: center;
+            color: #c05f96;
+            padding-bottom: 25px;
+            height: 300px;
+            /* moves text slightly up */
+        }
+
+        .text-section h1 {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Spacer = 2/8 */
+        .spacer {
+            width: 25%;
+        }
+
+        .heart-section {
+            width: 100%;
+            padding-bottom: 250px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .heart-wrapper {
+            position: relative;
+            /* this is the reference for drops */
+            width: 300px;
+            /* heart container size */
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: #FF5252;
+            clip-path: path("M12 4.419c-2.826-5.695-11.999-4.064-11.999 3.27 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-7.327-9.17-8.972-12-3.27z");
+            transform: scale(15);
+            animation: animateHeart 2s steps(1) infinite;
+        }
+
+        @keyframes animateHeart {
+
+            0%,
+            94%,
+            100% {
+                filter: none;
+                background: #6a1629;
+            }
+
+            95% {
+                filter: drop-shadow(0 0 50px #f00) drop-shadow(0 0 150px #f00);
+                background: #f00;
+            }
+        }
+
+        .drop {
+            position: absolute;
+            top: 40px;
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(5px 5px 10px #000) drop-shadow(0px 0px 10px #f00);
+            transform-origin: bottom;
+            animation: animate 4s linear forwards;
+        }
+
+        .drop::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: #f00;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            transform-origin: bottom center;
+            rotate: -45deg;
+            z-index: 100000;
+        }
+
+        .drop::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            width: 30px;
+            height: 20px;
+            background: #f00;
+            border-top-right-radius: 20px;
+            border-top-right-radius: 20px;
+            transform-origin: bottom center;
+            rotate: 315deg;
+            z-index: 100000;
+        }
+
+        @keyframes animate {
+            0% {
+                top: 100px;
+                opacity: 1;
+                scale: 1;
+            }
+
+            70% {
+                top: 450px;
+                opacity: 1;
+            }
+
+            80% {
+                top: 500px;
+            }
+
+            100% {
+                top: 500px;
+                opacity: 0;
+                scale: 0;
+            }
+        }
+
+        /* Extra small mobile screens */
+        @media (max-width: 480px) {
+            .ground-line {
+                position: absolute;
+                top: 85%;
+                /* 3/4 de la pantalla */
+                width: 100%;
+                height: 2px;
+                /* un poquito más visible */
+                background: red;
+                border-radius: 50px;
+            }
+
+            .text-section h1 {
+                font-size: 20px;
+                margin: 0 0 0px 0;
+                padding: 0%;
+            }
+
+            .text-section p {
+                padding-top: 20px;
+                font-size: 12px;
+                margin: 0;
+            }
+
+            .heart {
+                scale: 50%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ground-container">
+        <div class="text-section">
+            <h1>Nuestro amor comenzó con una intensidad que aún hoy sigue floreciendo. ❤️</h1>
+            <p id="counter"></p>
+        </div>
+        <div class="heart-section">
+            <div class="heart-wrapper">
+                <div class="heart"></div>
+            </div>
+        </div>
+        <div class="ground-line"></div>
+    </div>
+
+    <script>
+        /* Love Counter */
+        const startDate = new Date("2025-08-20T02:25:13");
+        const counter = document.getElementById("counter");
+
+        function rain() {
+            let heartWrapper = document.querySelector('.heart-wrapper');
+            let e = document.createElement('div');
+            e.classList.add('drop');
+            heartWrapper.appendChild(e);
+
+            let left = Math.floor(Math.random() * (heartWrapper.offsetWidth));
+            let duration = Math.random() * 0.5;
+
+
+            e.style.left = left + 'px';
+            e.style.animationDuration = 1 + duration + 's';
+            if (window.innerWidth <= 480) {
+                e.style.transform = 'scale(0.65)';
+            }
+            setTimeout(function () {
+                heartWrapper.removeChild(e)
+            }, 5000)
+        }
+
+        function updateCounter() {
+            const YearToSeconds = 60 * 60 * 24 * 365;
+            const now = new Date();
+            const diff = now - startDate;
+            const totalSeconds = Math.floor(diff / 1000);
+
+            let totalSecondsAdjusted = totalSeconds;
+
+            let years = Math.floor(totalSecondsAdjusted / YearToSeconds);
+            totalSecondsAdjusted -= years * YearToSeconds;
+            let secondsFromMonths = 0;
+
+            let monthCount = startDate.getMonth();
+            let months = 0;
+            let secondsForCurrentMonth = getSecondsFromMonth(monthCount);
+
+
+            while (totalSecondsAdjusted >= secondsForCurrentMonth) {
+                secondsFromMonths += secondsForCurrentMonth;
+                totalSecondsAdjusted -= secondsForCurrentMonth;
+                months = (months + 1) % 12;
+                monthCount = (monthCount + 1) % 12;
+                secondsForCurrentMonth = getSecondsFromMonth(monthCount);
+            }
+
+            let days = Math.floor(totalSecondsAdjusted / (60 * 60 * 24));
+            totalSecondsAdjusted -= days * 60 * 60 * 24;
+            let hours = Math.floor(totalSecondsAdjusted / (60 * 60));
+            totalSecondsAdjusted -= hours * 60 * 60;
+            let minutes = Math.floor(totalSecondsAdjusted / 60);
+            totalSecondsAdjusted -= minutes * 60;
+            let seconds = totalSecondsAdjusted;
+
+
+            counter.innerHTML =
+                `Mi amor por ti empezó hace ${years} años, ${months} meses, ${days} días,
+                    ${hours} horas, ${minutes} minutos y ${seconds} segundos,
+                    y cada instante a tu lado me hace recordar porque te amo❤️`;
+        }
+
+
+        function getSecondsFromMonth(month) {
+            let seconds = 0;
+            if (month === 1) {
+                seconds += 60 * 60 * 24 * 28;
+            } else if ([0, 2, 4, 6, 7, 9, 11].includes(month)) {
+                seconds += 60 * 60 * 24 * 31;
+            } else {
+                seconds += 60 * 60 * 24 * 30;
+            }
+            return seconds;
+        }
+
+        updateCounter();
+
+        setInterval(function () {
+            rain();
+        }, 50);
+        setInterval(function () {
+            updateCounter();
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
